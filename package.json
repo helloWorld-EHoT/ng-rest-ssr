@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
-    "server": "node server.js",
+    "server": "nodemon server.js",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -26,6 +26,9 @@
     "@angular/router": "^5.2.0",
     "@nguniversal/express-engine": "^6.0.0",
     "core-js": "^2.4.1",
+    "mongodb": "^3.1.0",
+    "mongoose": "^5.2.1",
+    "nodemon": "^1.17.5",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
