@@ -10,22 +10,70 @@ const IMAGE_KEY = makeStateKey('image');
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  image: any;
+
+  users;
 
   constructor(private http: HttpClient,
               private state: TransferState) {
   }
 
   ngOnInit() {
-    const image: any = this.state.get(IMAGE_KEY, null);
-    if (!image) {
-      this.http.get('http://www.splashbase.co/api/v1/images/random')
-        .subscribe(data => {
-          this.image = data;
-          this.state.set(IMAGE_KEY, data as any);
-        });
-    } else {
-      this.image = image;
-    }
+    this.getUsers();
+  }
+
+  addNew() {
+    const user: any = {
+      name: 'asd',
+      login: 'loginas',
+      email: 'new@gmail.com',
+      password: 'asdzxc'
+    };
+
+    this.http.post('http://localhost:3000/api/', user).subscribe(
+      response => {
+        this.getUsers();
+        console.log(response);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getUsers() {
+    this.http.get('http://localhost:3000/api/').subscribe(
+      response => {
+        this.users = response;
+        console.log(response);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteUser(id: string) {
+    this.http.delete(`http://localhost:3000/api/${id}/`).subscribe(
+      response => {
+        console.log(response);
+        this.getUsers();
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateUser(user: any) {
+
+    const updatedUser = Object.assign({}, user);
+
+    updatedUser.name = 'new Name';
+
+    this.http.put('http://localhost:3000/api/', updatedUser).subscribe(
+      response => {
+        console.log(response);
+        this.getUsers();
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 }
