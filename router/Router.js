@@ -10,16 +10,45 @@ require('../models/user.model');
 const UserListDB = mongoose.model('user');
 
 const UsersService = {
+
   getAllUsers(req, res) {
     UserListDB.find({})
-      .then(users => {res.send(users);})
-      .catch(err => {console.log(err);});
+      .then(users => {
+        res.send(users);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
+
   getUserById(req, res) {
     UserListDB.findOne({_id: req.params.id})
-      .then(user => {res.send(user);})
-      .catch(err => {console.log(err);});
+      .then(user => {
+        res.send(user);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
+
+  getUserToLogin(req, res) {
+    UserListDB.findOne({login: {$eq: req.body.login}})
+      .then((user) => {
+        if (user) {
+          if (user.password === req.body.password) {
+            res.send(user);
+            res.end();
+          }
+        } else {
+          res.send('Password is incorrect');
+        }
+      })
+      .catch(err => {
+        res.send('Password is incorrect');
+        console.log(err);
+      });
+  },
+
   addNewUser(req, res, user) {
 
     user.save()
@@ -27,8 +56,11 @@ const UsersService = {
         // console.log(newUser);
         res.end();
       })
-      .catch(err => {console.log(err);});
+      .catch(err => {
+        console.log(err);
+      });
   },
+
   updateUser(req, res) {
 
     const userToUpdate = Object.assign({}, req.body);
@@ -45,12 +77,18 @@ const UsersService = {
       }
     })
   },
+
   deleteUserById(req, res) {
     // UserListDB.find({_id: req.params.id})
     UserListDB.find({_id: req.params.id})
       .remove()
-      .then(newUser => {console.log(newUser); res.end();})
-      .catch(err => {console.log(err);});
+      .then(newUser => {
+        console.log(newUser);
+        res.end();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 
@@ -66,13 +104,19 @@ apiRouter.get('/:id', (req, res) => {
 
 });
 
+apiRouter.post('/auth/', (req, res) => {
+
+  UsersService.getUserToLogin(req, res);
+
+});
+
 apiRouter.post('/', (req, res) => {
 
   let config = {
     name: req.body.name,
     login: req.body.login,
     email: req.body.email,
-    password : req.body.password
+    password: req.body.password
   };
 
   let user = new UserListDB(config);

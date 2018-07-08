@@ -1,12 +1,4 @@
-<button (click)="addNew()">Add +</button>
-
-<ul>
-  <li *ngFor="let user of users">
-    <h3 (click)="deleteUser(user._id)">{{user.name}} click to delete item</h3>
-    <p>{{user.login}}</p>
-    <p>{{user._id}}</p>
-    <p (click)="updateUser(user)">{{user.email}} click to update item name  = "new Name"</p>
-  </li>
-</ul>
+<a routerLink="home">home</a>
+<a routerLink="auth">Login</a>
 
 <router-outlet></router-outlet>

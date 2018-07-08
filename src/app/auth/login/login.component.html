@@ -1,0 +1,19 @@
+<form class="login-form">
+  <div class="form-group">
+    <div class="form-control">
+      <label for="login">Login</label>
+      <input type="text" id="login" [(ngModel)]="user.login" name="login">
+    </div>
+    <div class="form-control">
+      <label for="password">Password</label>
+      <input type="password" id="password" [(ngModel)]="user.password" name="password">
+    </div>
+    <div class="form-control">
+      <label for="remember">Remember me</label>
+      <input type="checkbox" id="remember">
+    </div>
+  </div>
+  <button type="submit" (click)="loginUser()">Login</button>
+</form>
+
+<button (click)="getAll()"></button>
