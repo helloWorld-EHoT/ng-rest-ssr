@@ -1,25 +1,59 @@
 <h1>Войти в Чат</h1>
 <a [routerLink]="['/auth', 'registration']" class="auth-link">Новичок в чате? Зарегистрируйся!</a>
 
-<form class="form-horizontal">
+<form class="form-horizontal" [formGroup]="loginForm" autocomplete="off" (submit)="OnSubmit()">
+  <input autocomplete="off" name="hidden" type="text" style="display:none;">
   <div class="form-group">
-
-    <div class="col-sm-12">
-      <input type="email" class="form-control" id="inputEmail" [(ngModel)]="visitor.email" name="visitorEmail" [class.not-empty]="visitor.email.length > 0">
+    <div class="col-sm-12 control">
+      <input
+        type="text"
+        class="form-control"
+        id="inputEmail"
+        [(ngModel)]="visitor.email"
+        formControlName="email"
+        [class.not-empty]="visitor.email.length > 0"
+        [class.error]="loginForm.controls['email'].errors && loginForm.controls['email'].touched"
+        required
+        autocomplete="off">
       <label for="inputEmail" class="control-label">Почта</label>
+      <div class="error-message"
+           *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched"
+           [class.visible]="loginForm.controls['email'].errors">
+        <p [hidden]="!loginForm.controls['email'].errors.required">Почта обязательна для ввода.</p>
+        <p [hidden]="!loginForm.controls['email'].errors.patternInvalid">Вероятно в почте опечатка.</p>
+      </div>
     </div>
   </div>
   <div class="form-group">
-
-    <div class="col-sm-12">
-      <input type="password" class="form-control" id="inputPassword" [(ngModel)]="visitor.password" name="visitorPassword" [class.not-empty]="visitor.password.length > 0">
+    <div class="col-sm-12 control">
+      <input
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        [(ngModel)]="visitor.password"
+        formControlName="password"
+        [class.not-empty]="visitor.password.length > 0"
+        [class.error]="loginForm.controls['password'].errors && loginForm.controls['password'].touched"
+        required
+        autocomplete="off"
+        minlength="6">
       <label for="inputPassword" class="control-label">Пароль</label>
+      <div class="error-message"
+           *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched"
+           [class.visible]="loginForm.controls['password'].errors">
+        <p [hidden]="!loginForm.controls['password'].errors.required">Пароль обязателен для ввода.</p>
+        <p [hidden]="!loginForm.controls['password'].errors.minlength">Пароль слишком короток.</p>
+      </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-12 center-block">
-
-      <button type="submit" class="btn btn-default btn-auth" (click)="goToChat()">Войти</button>
+      <button
+        type="submit"
+        class="btn btn-default btn-auth"
+        [disabled]="!loginForm.valid">
+        Войти
+      </button>
       <!--<a [routerLink]="['/chat']" class="btn btn-default btn-auth">Войти</a>-->
     </div>
   </div>

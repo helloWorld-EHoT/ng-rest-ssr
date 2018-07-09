@@ -1,31 +1,55 @@
 <h1>Зарегистрироваться</h1>
 <a [routerLink]="['/auth', 'login']" class="auth-link">Уже есть аккаунт? Входи здесь!</a>
 
-<form class="form-horizontal">
+<form class="form-horizontal" [formGroup]="registrationForm" autocomplete="off">
+  <input autocomplete="off" name="hidden" type="text" style="display:none;">
   <div class="form-group">
-
     <div class="col-sm-12">
-      <input type="text" class="form-control" id="inputName" [(ngModel)]="newVisitor.name" name="newVisitor.name" [class.not-empty]="newVisitor.name.length > 0">
+      <input
+        type="text"
+        class="form-control"
+        id="inputName"
+        [(ngModel)]="newVisitor.name"
+        formControlName="newName"
+        [class.not-empty]="newVisitor.name.length > 0"
+        required
+        autocomplete="off"
+      minlength="2">
       <label for="inputName" class="control-label">Имя</label>
     </div>
   </div>
   <div class="form-group">
-
     <div class="col-sm-12">
-      <input type="email" class="form-control" id="inputEmail" [(ngModel)]="newVisitor.email" name="newVisitor.name" [class.not-empty]="newVisitor.email.length > 0">
+      <input
+        type="text"
+        class="form-control"
+        id="inputEmail"
+        [(ngModel)]="newVisitor.email"
+        formControlName="newEmail"
+        [class.not-empty]="newVisitor.email.length > 0"
+        required
+        autocomplete="off">
       <label for="inputEmail" class="control-label">Почта</label>
     </div>
   </div>
   <div class="form-group">
-
     <div class="col-sm-12">
-      <input type="password" class="form-control" id="inputPassword" [(ngModel)]="newVisitor.password" name="newVisitor.name" [class.not-empty]="newVisitor.password.length > 0">
+      <input
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        [(ngModel)]="newVisitor.password"
+        formControlName="newPassword"
+        [class.not-empty]="newVisitor.password.length > 0"
+        required
+        autocomplete="off"
+      minlength="6">
       <label for="inputPassword" class="control-label">Пароль</label>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-12 center-block">
-      <button type="submit" class="btn btn-default btn-auth" (click)="goToChat()">Зарегистрироваться</button>
+      <button type="submit" class="btn btn-default btn-auth" (click)="goToChat()" [disabled]="registrationForm.invalid">Зарегистрироваться</button>
     </div>
   </div>
 </form>

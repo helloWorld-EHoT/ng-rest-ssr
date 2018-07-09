@@ -1,0 +1,71 @@
+.control {
+  position: relative;
+  .error-message {
+    position: absolute;
+    top: 38px;
+    left: 15px;
+    color: firebrick;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    p {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    &.visible {
+      opacity: 1;
+    }
+  }
+}
+
+.form-horizontal {
+  label.control-label {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+  }
+  .form-group {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    .center-block {
+      width: auto;
+    }
+  }
+  .form-control:focus ~ label.control-label,
+  .form-control.not-empty ~ label.control-label {
+    left: calc(100%  - 100px);
+    width: 70px;
+    text-align: right;
+    font-size: 80%;
+    color: rgba(255, 255, 255, 0.50);
+  }
+  .form-control.error {
+    border-color: firebrick;
+    &:focus {
+      border-color: transparent;
+      & ~ .error-message.visible {
+        opacity: 0 !important;
+      }
+    }
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #55b14b;
+  -webkit-text-fill-color: #7bb175;
+  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0.2) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
