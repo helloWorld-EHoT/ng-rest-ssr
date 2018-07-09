@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HomeComponent} from './home/home.component';
+// import {HomeComponent} from './home/home.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {RootComponent} from './root/root.component';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'home'
+    path: '', pathMatch: 'full', redirectTo: 'chat'
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'root', component: RootComponent
   },
   {
     path: '**', component: PageNotFoundComponent

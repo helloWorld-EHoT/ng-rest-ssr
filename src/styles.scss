@@ -1,6 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "assets/sass/main";
+@import "assets/sass/auth";
+@import "assets/sass/app/typography";
+@import "assets/sass/theme/bootstrap-overrides/panel";
+@import "assets/sass/theme/bootstrap-overrides/tabs";
+@import "assets/sass/theme/components/sidebar";
+@import "assets/sass/theme/components/contentTop";
+@import "assets/sass/theme/components/pageTop";
+@import "assets/sass/theme/components/backTop";
+@import "assets/sass/theme/dashboard/timeline";
+
 body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
+}
+
+::selection {
+  color: #c8ccb1;
+  background-color: rgba(0,0,0,0.5);
 }

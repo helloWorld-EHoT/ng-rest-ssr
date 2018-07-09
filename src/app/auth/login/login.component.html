@@ -1,19 +1,36 @@
-<form class="login-form">
+<h1>Войти в Чат</h1>
+<a [routerLink]="['/auth', 'registration']" class="auth-link">Новичок в чате? Зарегистрируйся!</a>
+
+<form class="form-horizontal">
   <div class="form-group">
-    <div class="form-control">
-      <label for="login">Login</label>
-      <input type="text" id="login" [(ngModel)]="user.login" name="login">
-    </div>
-    <div class="form-control">
-      <label for="password">Password</label>
-      <input type="password" id="password" [(ngModel)]="user.password" name="password">
-    </div>
-    <div class="form-control">
-      <label for="remember">Remember me</label>
-      <input type="checkbox" id="remember">
+
+    <div class="col-sm-12">
+      <input type="email" class="form-control" id="inputEmail" [(ngModel)]="visitor.email" name="visitorEmail" [class.not-empty]="visitor.email.length > 0">
+      <label for="inputEmail" class="control-label">Почта</label>
     </div>
   </div>
-  <button type="submit" (click)="loginUser()">Login</button>
+  <div class="form-group">
+
+    <div class="col-sm-12">
+      <input type="password" class="form-control" id="inputPassword" [(ngModel)]="visitor.password" name="visitorPassword" [class.not-empty]="visitor.password.length > 0">
+      <label for="inputPassword" class="control-label">Пароль</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12 center-block">
+
+      <button type="submit" class="btn btn-default btn-auth" (click)="goToChat()">Войти</button>
+      <!--<a [routerLink]="['/chat']" class="btn btn-default btn-auth">Войти</a>-->
+    </div>
+  </div>
 </form>
 
-<button (click)="getAll()"></button>
+<div class="auth-sep"><span><span>или войди в один клик</span></span></div>
+
+<div class="al-share-auth">
+  <ul class="al-share clearfix">
+    <li><i class="socicon socicon-facebook" title="Share on Facebook"></i></li>
+    <li><i class="socicon socicon-twitter" title="Share on Twitter"></i></li>
+    <li><i class="socicon socicon-google" title="Share on Google Plus"></i></li>
+  </ul>
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {IUser} from '../../shared/models/user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'benamix-registration',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor() { }
+  newVisitor: IUser = {
+    name: '',
+    email: '',
+    password: ''
+  };
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  goToChat() {
+    this.router.navigate(['/chat']);
   }
 
 }
