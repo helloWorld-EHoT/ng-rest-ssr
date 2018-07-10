@@ -1,55 +1,80 @@
 <h1>Зарегистрироваться</h1>
 <a [routerLink]="['/auth', 'login']" class="auth-link">Уже есть аккаунт? Входи здесь!</a>
 
-<form class="form-horizontal" [formGroup]="registrationForm" autocomplete="off">
+<form class="form-horizontal" [formGroup]="registrationForm" autocomplete="off" (submit)="onSubmit()">
   <input autocomplete="off" name="hidden" type="text" style="display:none;">
   <div class="form-group">
-    <div class="col-sm-12">
+    <div class="col-sm-12 control">
       <input
         type="text"
         class="form-control"
         id="inputName"
         [(ngModel)]="newVisitor.name"
-        formControlName="newName"
+        formControlName="name"
         [class.not-empty]="newVisitor.name.length > 0"
+        [class.error]="registrationForm.controls['name'].errors && registrationForm.controls['name'].touched"
         required
         autocomplete="off"
-      minlength="2">
+        minlength="2">
       <label for="inputName" class="control-label">Имя</label>
+      <div class="error-message"
+           *ngIf="registrationForm.controls['name'].errors && registrationForm.controls['name'].touched"
+           [class.visible]="registrationForm.controls['name'].errors">
+        <p [hidden]="!registrationForm.controls['name'].errors.required">Имя обязательно для ввода!</p>
+        <p [hidden]="!registrationForm.controls['name'].errors.minlength">Имя слишком короткое!</p>
+      </div>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-12">
+    <div class="col-sm-12 control">
       <input
         type="text"
         class="form-control"
         id="inputEmail"
         [(ngModel)]="newVisitor.email"
-        formControlName="newEmail"
+        formControlName="email"
         [class.not-empty]="newVisitor.email.length > 0"
+        [class.error]="registrationForm.controls['email'].errors && registrationForm.controls['email'].touched"
         required
         autocomplete="off">
       <label for="inputEmail" class="control-label">Почта</label>
+      <div class="error-message"
+           *ngIf="registrationForm.controls['email'].errors && registrationForm.controls['email'].touched"
+           [class.visible]="registrationForm.controls['email'].errors">
+        <p [hidden]="!registrationForm.controls['email'].errors.required">Почта обязательна для ввода!</p>
+        <p [hidden]="!registrationForm.controls['email'].errors.patternInvalid">Вероятно в почте опечатка!</p>
+      </div>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-12">
+    <div class="col-sm-12 control">
       <input
         type="password"
         class="form-control"
         id="inputPassword"
         [(ngModel)]="newVisitor.password"
-        formControlName="newPassword"
+        formControlName="password"
         [class.not-empty]="newVisitor.password.length > 0"
+        [class.error]="registrationForm.controls['password'].errors && registrationForm.controls['password'].touched"
         required
         autocomplete="off"
-      minlength="6">
+        minlength="6">
       <label for="inputPassword" class="control-label">Пароль</label>
+      <div class="error-message"
+           *ngIf="registrationForm.controls['password'].errors && registrationForm.controls['password'].touched"
+           [class.visible]="registrationForm.controls['password'].errors">
+        <p [hidden]="!registrationForm.controls['password'].errors.required">Пароль обязателен для ввода!</p>
+        <p [hidden]="!registrationForm.controls['password'].errors.minlength">Пароль слишком короткий!</p>
+      </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-12 center-block">
-      <button type="submit" class="btn btn-default btn-auth" (click)="goToChat()" [disabled]="registrationForm.invalid">Зарегистрироваться</button>
+      <button type="submit"
+              class="btn btn-default btn-auth"
+              [disabled]="registrationForm.invalid">
+        Зарегистрироваться
+      </button>
     </div>
   </div>
 </form>

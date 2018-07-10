@@ -9,6 +9,10 @@ export class ApiService {
 
   }
 
+  registrateNewUser(newUser: IUser) {
+    return this.http.post('http://localhost:3000/api/', newUser);
+  }
+
   addNewUserToDb(user: IUser) {
     return this.http.post('http://localhost:3000/api/', user);
   // .subscribe(
@@ -21,8 +25,8 @@ export class ApiService {
   //   );
   }
 
-  getUserToLogin(login: string, password: string) {
-    return this.http.post(`http://localhost:3000/api/auth/`, {login, password});
+  getUserToEmail(email: string, password: string) {
+    return this.http.post(`http://localhost:3000/api/auth/`, {email, password});
   }
 
   getUsers() {

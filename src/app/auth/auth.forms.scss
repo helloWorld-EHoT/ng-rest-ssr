@@ -4,12 +4,14 @@
     position: absolute;
     top: 38px;
     left: 15px;
-    color: firebrick;
+    color: #db5531;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    text-shadow: 1px 1px 3px #000;
     p {
       font-size: 12px;
       font-weight: bold;
+      user-select: none;
     }
     &.visible {
       opacity: 1;
@@ -68,4 +70,11 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+button[type=submit] {
+  cursor: pointer;
+  &:disabled:hover {
+    opacity: 0.2;
+    cursor: default;
+  }
+}
 

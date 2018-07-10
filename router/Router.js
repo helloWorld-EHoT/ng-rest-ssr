@@ -31,8 +31,8 @@ const UsersService = {
       });
   },
 
-  getUserToLogin(req, res) {
-    UserListDB.findOne({login: {$eq: req.body.login}})
+  getUserToEmail(req, res) {
+    UserListDB.findOne({email: {$eq: req.body.email}})
       .then((user) => {
         if (user) {
           if (user.password === req.body.password) {
@@ -53,7 +53,7 @@ const UsersService = {
 
     user.save()
       .then(newUser => {
-        // console.log(newUser);
+        console.log(newUser);
         res.end();
       })
       .catch(err => {
@@ -106,7 +106,7 @@ apiRouter.get('/:id', (req, res) => {
 
 apiRouter.post('/auth/', (req, res) => {
 
-  UsersService.getUserToLogin(req, res);
+  UsersService.getUserToEmail(req, res);
 
 });
 
@@ -114,7 +114,7 @@ apiRouter.post('/', (req, res) => {
 
   let config = {
     name: req.body.name,
-    login: req.body.login,
+    login: req.body.name,
     email: req.body.email,
     password: req.body.password
   };

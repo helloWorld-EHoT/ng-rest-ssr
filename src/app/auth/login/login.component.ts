@@ -17,8 +17,6 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-
-
   loginForm: FormGroup;
 
   constructor(
@@ -29,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.getAll();
   }
 
   initForm() {
@@ -53,11 +52,18 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  goToChat() {
-    this.router.navigate(['/chat']);
-  }
+  // goToChat() {
+  //   this.router.navigate(['/chat']);
+  // }
 
   OnSubmit() {
-    this.goToChat();
+    console.log(this.loginForm.value);
+    this.logIn(this.loginForm.value);
+
+    // this.goToChat();
+  }
+
+  logIn(user: IUser) {
+    this.auth.login(user);
   }
 }

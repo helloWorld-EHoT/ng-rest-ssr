@@ -19,8 +19,8 @@
       <div class="error-message"
            *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched"
            [class.visible]="loginForm.controls['email'].errors">
-        <p [hidden]="!loginForm.controls['email'].errors.required">Почта обязательна для ввода.</p>
-        <p [hidden]="!loginForm.controls['email'].errors.patternInvalid">Вероятно в почте опечатка.</p>
+        <p [hidden]="!loginForm.controls['email'].errors.required">Почта обязательна для ввода!</p>
+        <p [hidden]="!loginForm.controls['email'].errors.patternInvalid">Вероятно в почте опечатка!</p>
       </div>
     </div>
   </div>
@@ -41,8 +41,8 @@
       <div class="error-message"
            *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched"
            [class.visible]="loginForm.controls['password'].errors">
-        <p [hidden]="!loginForm.controls['password'].errors.required">Пароль обязателен для ввода.</p>
-        <p [hidden]="!loginForm.controls['password'].errors.minlength">Пароль слишком короток.</p>
+        <p [hidden]="!loginForm.controls['password'].errors.required">Пароль обязателен для ввода!</p>
+        <p [hidden]="!loginForm.controls['password'].errors.minlength">Пароль слишком короткий!</p>
       </div>
     </div>
   </div>
@@ -54,7 +54,6 @@
         [disabled]="!loginForm.valid">
         Войти
       </button>
-      <!--<a [routerLink]="['/chat']" class="btn btn-default btn-auth">Войти</a>-->
     </div>
   </div>
 </form>

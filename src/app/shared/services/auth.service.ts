@@ -3,23 +3,22 @@ import {Injectable} from '@angular/core';
 
 import {IUser} from '../models/user.model';
 import {ApiService} from './api.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  isLoggedIn = false;
-  // redirectTo: string;
-  user: IUser;
+  private isLoggedIn = false;
+  private user: IUser;
 
-  constructor(private api: ApiService) {
-
-  }
+  constructor(private api: ApiService,
+              private router: Router) {}
 
   login(user: IUser): any {
-    this.api.getUserToLogin(user.login, user.password).subscribe((response: IUser) => {
-      this.user = response;
-
-      this.isLoggedIn = true;
+    this.api.getUserToEmail(user.email, user.password).subscribe((response: IUser) => {
+      this.setUser(response);
+      this.setLoggedState(true);
+      console.log(response);
     }, error => {
       console.log(error);
     });
@@ -27,6 +26,23 @@ export class AuthService {
 
   getAll() {
     return this.api.getUsers();
+  }
+
+  getUser(): IUser {
+    return this.user;
+  }
+
+  getLoggedState(): boolean {
+    return this.isLoggedIn;
+  }
+
+  setUser(user: IUser) {
+    this.user = user;
+    // this.router.navigate(['/chat']);
+  }
+
+  setLoggedState(state: boolean) {
+    this.isLoggedIn = state;
   }
 
 }
