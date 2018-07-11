@@ -15,6 +15,7 @@ import {AuthGuard} from './shared/guards/auth.guard';
 import {RoleGuard} from './shared/guards/role.guard';
 import {ApiService} from './shared/services/api.service';
 import {RootComponent} from './root/root.component';
+import {LoggedGuard} from './shared/guards/logged.guard';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {RootComponent} from './root/root.component';
     PlatformService,
     AuthService,
     AuthGuard,
+    LoggedGuard,
     ApiService,
     RoleGuard
   ],

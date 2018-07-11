@@ -1,11 +1,15 @@
 h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family;
+  font-family: $font-family !important;
   width: 100%;
   margin-top: 0;
 }
 
 h1.color, h2.color, h3.color, h4.color, h5.color, h6.color {
   color: $danger;
+}
+
+body, html {
+  font-family: $font-family !important;
 }
 
 body a {
@@ -158,7 +162,6 @@ h5 {
       }
     }
   }
-
 }
 
 .lists-widget {

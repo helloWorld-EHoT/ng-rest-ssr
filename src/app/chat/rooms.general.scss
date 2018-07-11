@@ -1,0 +1,20 @@
+.cd-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel.panel-blur {
+  position: fixed;
+  bottom: 0;
+  right: 25px;
+  left: 210px;
+}
+
+.panel-body-messages {
+  height: calc(100vh - 180px);
+  min-height: calc(100vh - 180px);
+  max-height: calc(100vh - 180px);
+  display: flex;
+  overflow-y: scroll;
+
+}

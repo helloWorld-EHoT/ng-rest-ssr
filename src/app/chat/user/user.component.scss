@@ -1,0 +1,51 @@
+.profile-toggle-link.dropdown-toggle {
+  width: 45px;
+  height: 45px;
+}
+.profile-toggle-link.dropdown-toggle:hover ~ .top-dropdown-menu.profile-dropdown,
+.top-dropdown-menu.profile-dropdown:hover {
+  display: block;
+  top: 48px;
+  right: -13px;
+  left: auto;
+}
+.profile-dropdown a {
+  text-align: right;
+  cursor: pointer;
+  & > i {
+    padding-top: 2px;
+    float: left;
+    font-size: 16px;
+    transition: color 0.1s ease-in-out;
+  }
+  &:hover {
+    font-weight: bold;
+    & > i {
+      color: #d29829;
+    }
+  }
+  &.signout > i {
+    color: #2d1414;
+  }
+  &.signout:hover > i {
+    color: #d2534d;
+  }
+}
+.profile-dropdown:before {
+  position: absolute;
+  content: '';
+  width: 60px;
+  height: 15px;
+  right: 0;
+  top: -10px;
+}
+
+.user-name {
+  display: block;
+  float: right;
+  line-height: 45px;
+  margin: 0 25px 0 0;
+  user-select: none;
+  letter-spacing: 2px;
+  cursor: default;
+}

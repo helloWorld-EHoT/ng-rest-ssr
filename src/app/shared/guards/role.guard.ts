@@ -6,7 +6,8 @@ import {Observable} from 'rxjs/Observable';
 export class RoleGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return undefined;
+    // return undefined;
+    return true;
   }
 
 }

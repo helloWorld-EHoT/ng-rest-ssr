@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-// import {Observable} from 'rxjs/Observable';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import {IUser} from '../models/user.model';
 import {ApiService} from './api.service';
@@ -12,16 +12,30 @@ export class AuthService {
   private user: IUser;
 
   constructor(private api: ApiService,
-              private router: Router) {}
+              private router: Router,
+              @Inject(PLATFORM_ID) private platformId
+  ) {}
 
   login(user: IUser): any {
     this.api.getUserToEmail(user.email, user.password).subscribe((response: IUser) => {
       this.setUser(response);
       this.setLoggedState(true);
+
+      // Navigate
+      this.router.navigate(['/chat']);
       console.log(response);
     }, error => {
       console.log(error);
     });
+  }
+
+  logOut() {
+    this.isLoggedIn = false;
+    this.user = null;
+    if (isPlatformBrowser(this.platformId)) {
+      window.localStorage.removeItem('user');
+    }
+    this.router.navigate(['/auth', 'login']);
   }
 
   getAll() {
@@ -29,6 +43,10 @@ export class AuthService {
   }
 
   getUser(): IUser {
+    if (isPlatformBrowser(this.platformId) && window.localStorage.getItem('user')) {
+      this.user = JSON.parse(window.localStorage.getItem('user'));
+      this.isLoggedIn = true;
+    }
     return this.user;
   }
 
@@ -38,7 +56,10 @@ export class AuthService {
 
   setUser(user: IUser) {
     this.user = user;
-    // this.router.navigate(['/chat']);
+
+    if (isPlatformBrowser(this.platformId)) {
+      window.localStorage.setItem('user', JSON.stringify(user));
+    }
   }
 
   setLoggedState(state: boolean) {

@@ -1,21 +1,27 @@
 <div class="page-top">
   <a class="al-logo">
-    <span (click)="goToLogin()">Chat</span>
+    <span>Chat</span>
     App
   </a>
   <a class="collapse-menu-link ion-navicon"></a>
+  <benamix-user></benamix-user>
+
 </div>
 
 <aside class="al-sidebar">
   <ul class="al-sidebar-list">
-    <li class="al-sidebar-list-item selected">
-      <a class="al-sidebar-list-link">
+    <li class="al-sidebar-list-item" routerLinkActive="selected">
+      <a class="al-sidebar-list-link" [routerLink]="['/chat', 'room', 'main-chat']">
         <span>Main Chat</span>
+        <span class="new-message public">5</span>
+        <figure class="notification-ring"></figure>
       </a>
     </li>
-    <li class="al-sidebar-list-item">
-      <a class="al-sidebar-list-link">
+    <li class="al-sidebar-list-item" routerLinkActive="selected">
+      <a class="al-sidebar-list-link" [routerLink]="['/chat', 'private', 'alex']">
         <span>OurChat</span>
+        <span class="new-message private">22</span>
+        <figure class="notification-ring"></figure>
       </a>
     </li>
     <li class="al-sidebar-list-item">
@@ -27,87 +33,4 @@
 </aside>
 
 
-<div class="al-main">
-  <div class="al-content">
-    <div class="content-top">
-      <div class="al-title">
-      </div>
-    </div>
-    <div class="widgets">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-blur with-scroll animated zoomIn">
-            <div class="panel-body" style="min-height: calc(100vh - 210px);display: flex;">
-              <section class="cd-container">
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>User</h5>
-                    <p>
-                      My message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:12:10</span>
-                  </div>
-                </div>
-
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>Another user</h5>
-                    <p>
-                      Another message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:13:40</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>Lorem User</h5>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cumque placeat quis. Aliquam aspernatur at, commodi dolorem libero, magnam nisi nobis non quam quidem, reiciendis rerum saepe tempore ullam vel.
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:20:00</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>Another user</h5>
-                    <p>
-                      Another message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:13:40</span>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="panel-body">
-              <form class="row form-inline">
-                <div class="form-group col-md-12">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <textarea class="form-control" placeholder="Текст сообщения..." rows="2"></textarea>
-                      <button type="submit" class="btn btn-default btn-raised">Отправить</button>
-                    </div>
-                  </div>
-
-                </div>
-              </form>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <router-outlet></router-outlet>

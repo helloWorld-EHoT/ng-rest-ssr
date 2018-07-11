@@ -14,7 +14,7 @@
 }
 
 a.al-logo {
-  color: $sidebar-text;
+  color: $primary;
   display: block;
   font-size: 24px;
   font-family: $font-family;
@@ -22,9 +22,15 @@ a.al-logo {
   float: left;
   outline: none !important;
   line-height: 60px;
-
+  cursor: pointer;
+  &:hover {
+    color: $sidebar-text;
+    span {
+      color: $primary;
+    }
+  }
   span {
-    color: $primary;
+    color: $sidebar-text;
   }
 }
 

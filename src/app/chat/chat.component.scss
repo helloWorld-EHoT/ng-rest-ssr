@@ -1,5 +1,52 @@
-.cd-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+@-webkit-keyframes pulsate {
+  30% {
+    -webkit-transform: scale(0.1, 0.1);
+    opacity: 0.0;
+  }
+  35% {
+    opacity: 1.0;
+  }
+  40% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 0.0;
+  }
+}
+
+figure.new-message {
+  border: 1px solid #e85656;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  right: 16px;
+  top: 16px;
+  border-radius: 100px;
+  animation: pulsate 8s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0.0
+}
+
+.new-message {
+  position: absolute;
+  right: 5px;
+  top: 14px;
+  min-width: 16px;
+  padding: 0 5px;
+  height: 16px;
+  border-radius: 32px;
+  color: #FFF;
+  line-height: 16px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.private {
+  background-color: #e85656;
+}
+
+.public {
+  background-color: #3b6bb3;
+}
+
+.al-sidebar-list-link {
+  position: relative;
 }

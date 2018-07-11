@@ -1,0 +1,16 @@
+<div class="user-profile">
+
+  <div class="al-user-profile dropdown">
+    <a class="profile-toggle-link dropdown-toggle">
+      <img src="assets/img/app/profile/81.jpg">
+    </a>
+    <ul class="top-dropdown-menu profile-dropdown dropdown-menu">
+      <li><i class="dropdown-arr"></i></li>
+      <li><a routerLink="profile"><i class="fa fa-user"></i>Profile</a></li>
+      <li><a routerLink="settings"><i class="fa fa-cog"></i>Settings</a></li>
+      <li><a class="signout" (click)="logOut()"><i class="fa fa-power-off"></i>Sign out</a></li>
+    </ul>
+  </div>
+
+  <p class="user-name">{{user.name}}</p>
+</div>
