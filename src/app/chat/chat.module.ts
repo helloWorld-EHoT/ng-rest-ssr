@@ -6,11 +6,14 @@ import { RoomComponent } from './room/room.component';
 import { PrivateComponent } from './private/private.component';
 import {ChatComponent} from './chat.component';
 import { UserComponent } from './user/user.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    ChatRoutingModule
+    ChatRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     RoomComponent,

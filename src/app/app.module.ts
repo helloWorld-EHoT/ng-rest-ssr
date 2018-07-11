@@ -16,6 +16,7 @@ import {RoleGuard} from './shared/guards/role.guard';
 import {ApiService} from './shared/services/api.service';
 import {RootComponent} from './root/root.component';
 import {LoggedGuard} from './shared/guards/logged.guard';
+import {SocketService} from './shared/services/socket.service';
 
 
 @NgModule({
@@ -34,11 +35,14 @@ import {LoggedGuard} from './shared/guards/logged.guard';
     BrowserTransferStateModule
   ],
   providers: [
+    // Services
     PlatformService,
     AuthService,
+    ApiService,
+    SocketService,
+    // Guards
     AuthGuard,
     LoggedGuard,
-    ApiService,
     RoleGuard
   ],
   bootstrap: [AppComponent]

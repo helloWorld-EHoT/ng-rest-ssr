@@ -50,3 +50,7 @@ figure.new-message {
 .al-sidebar-list-link {
   position: relative;
 }
+.al-sidebar-list-link.disabled {
+  color: #999999;
+  cursor: default;
+}

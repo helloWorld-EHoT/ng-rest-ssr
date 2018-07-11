@@ -10,101 +10,34 @@
           <div class="panel panel-blur with-scroll animated zoomIn">
             <div class="panel-body panel-body-messages">
               <section class="cd-container">
-                <div class="cd-timeline-block">
+
+                <div class="cd-timeline-block" *ngFor="let message of serverMessages">
                   <div class="cd-timeline-img">
                     <img src="../../assets/img/face.svg" alt="">
                   </div>
                   <div class="cd-timeline-content  warning">
-                    <h5>User</h5>
-                    <p>
-                      My message...
+                    <h5 class="user-name">{{ message.sender }}</h5>
+                    <p class="user-message">
+                      {{ message.content }}
                     </p>
-                    <span class="cd-date">01 Jun 2018 15:12:10</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>User</h5>
-                    <p>
-                      My message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:12:10</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>User</h5>
-                    <p>
-                      My message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:12:10</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>User</h5>
-                    <p>
-                      My message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:12:10</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>Another user</h5>
-                    <p>
-                      Another message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:13:40</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>Lorem User</h5>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cumque placeat quis. Aliquam
-                      aspernatur at, commodi dolorem libero, magnam nisi nobis non quam quidem, reiciendis rerum saepe
-                      tempore ullam vel.
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:20:00</span>
-                  </div>
-                </div>
-                <div class="cd-timeline-block">
-                  <div class="cd-timeline-img">
-                    <img src="../../assets/img/face.svg" alt="">
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5>Another user</h5>
-                    <p>
-                      Another message...
-                    </p>
-                    <span class="cd-date">01 Jun 2018 15:13:40</span>
+                    <span class="cd-date">{{ message.date | date:'medium' }}</span>
                   </div>
                 </div>
               </section>
             </div>
             <div class="panel-body">
-              <form class="row form-inline">
+              <form class="row form-inline" [formGroup]="sendForm" autocomplete="off" (submit)="OnSubmit()">
                 <div class="form-group col-md-12">
                   <div class="row">
                     <div class="col-md-12">
-                      <textarea class="form-control" placeholder="Текст сообщения..." rows="2"></textarea>
-                      <button type="submit" class="btn btn-default btn-raised">Отправить</button>
+                      <textarea class="form-control"
+                                placeholder="Текст сообщения..."
+                                rows="2"
+                                [(ngModel)]="message"
+                                required
+                                formControlName="message"></textarea>
+                      <button type="submit" class="btn btn-default btn-raised" [disabled]="!sendForm.valid">Отправить
+                      </button>
                     </div>
                   </div>
                 </div>

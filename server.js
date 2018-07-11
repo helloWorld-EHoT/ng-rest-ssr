@@ -39,8 +39,10 @@ wsServer.on('connection', (ws) => {
         });
 
     } else {
-      ws.send(`Hello, you sent -> ${message}`);
+      // ws.send(`Hello, you sent -> ${message}`);
+      // ws.send(message);
     }
+    ws.send(message);
   });
 
   ws.on('close', function() {
@@ -48,7 +50,7 @@ wsServer.on('connection', (ws) => {
   });
 
   //send immediatly a feedback to the incoming connection
-  ws.send('Hi there, I am a WebSocket server');
+  ws.send('{"sender":"server","content":"Hi there, I am a WebSocket server","date":"1531343675751"}');
 });
 
 // wsServer.on('disconnect');

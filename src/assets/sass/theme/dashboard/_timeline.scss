@@ -1,3 +1,19 @@
+@mixin cd-timeline-color($color) {
+  background: $color;
+}
+
+@mixin cd-timeline-left-color($color) {
+  &:before {
+    border-left-color: $color;
+  }
+}
+
+@mixin cd-timeline-right-color($color) {
+  &::before {
+    border-right-color: $color;
+  }
+}
+
 #cd-timeline {
   margin-top: 15px;
   position: relative;
@@ -23,30 +39,34 @@
     clear: both;
   }
 
-  &:first-child {
-    margin-top: 0;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  //&:first-child {
+  //  margin-top: 0;
+  //}
+  //
+  //&:last-child {
+  //  margin-bottom: 0;
+  //}
 }
 
 .cd-timeline-img {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  z-index: 666;
+  img {
+    width: 100%;
+  }
+  //border-radius: 0;
 }
 
 @media only screen and (min-width: $resXL) {
   .cd-timeline-img {
-    width: 60px;
-    height: 60px;
-    left: 50%;
-    margin-left: -30px;
+    //width: 60px;
+    //height: 60px;
+    left: 0;
+    //margin-left: -30px;
     /* Force Hardware Acceleration in WebKit */
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -81,12 +101,8 @@
   margin-left: 60px;
   background: $primary;
   padding: 1em;
-  border-radius: 5px;
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+  min-height: 60px;
+  //border-radius: 5px;
 
   h5 {
     text-shadow: 1px 1px 2px #1C2B36;
@@ -120,46 +136,60 @@
 
   .cd-date {
     float: left;
-    padding: .8em 0;
-    opacity: .7;
+    right: 0;
+    width: auto;
+    padding: 2px 7px;
+    left: auto;
+    top: -20px;
+    @include cd-timeline-color(rgba($message-bg, 0.4));
+    &:before {
+      content: '';
+      background: transparent;
+      border: 10px solid transparent;
+      border-right-color: rgba($message-bg, 0.4);
+      border-bottom-color: rgba($message-bg, 0.4);
+      height: 0;
+      position: absolute;
+      left: -20px;
+      top: 0;
+    }
   }
 
-  &:before {
-    content: '';
+  .user-name {
     position: absolute;
-    top: 16px;
-    right: 100%;
-    height: 0;
-    width: 0;
-    border: 7px solid transparent;
-    border-right: 7px solid white;
+    top: -20px;
+    left: 0;
+    width: auto;
+    padding: 2px 12px;
+    @include cd-timeline-color(rgba($message-bg, 0.4));
+    &:after {
+      content: '';
+      background: transparent;
+      border: 10px solid transparent;
+      border-bottom-color: rgba($message-bg, 0.4);
+      border-left-color: rgba($message-bg, 0.4);
+      height: 0;
+      position: absolute;
+      right: -20px;
+      top: 0;
+    }
+  }
+
+  .user-message {
+    padding-left: 60px;
   }
 }
 
-@mixin cd-timeline-color($color) {
-  background: $color;
-}
 
-@mixin cd-timeline-left-color($color) {
-  &:before {
-    border-left-color: $color;
-  }
-}
-
-@mixin cd-timeline-right-color($color) {
-  &::before {
-    border-right-color: $color;
-  }
-}
 
 .cd-timeline-content.warning {
-  @include cd-timeline-color(rgba($warning, 0.2));
+  @include cd-timeline-color(rgba($message-bg, 0.4));
 }
 .cd-timeline-content.danger {
-  @include cd-timeline-color(rgba($danger, 0.2));
+  @include cd-timeline-color(rgba($danger, 0.4));
 }
 .cd-timeline-content.primary {
-  @include cd-timeline-color(rgba($primary, 0.2));
+  @include cd-timeline-color(rgba($primary, 0.4));
 }
 
 .no-touch .cd-timeline-content .cd-read-more:hover {
@@ -174,19 +204,13 @@
   }
 
   .cd-timeline-block {
-    margin: 2em 0;
-    &:first-child {
-      margin-top: 0;
-    }
-    &:last-child {
-      margin-bottom: 0;
-    }
+    margin: 1.5em 0;
   }
 
   .cd-timeline-content {
     margin-left: 0;
-    padding: 1.6em;
-    width: 42%;
+    padding: 0.5em;
+    width: 100%;
     &::before {
       top: 24px;
       left: 100%;
@@ -199,15 +223,16 @@
     }
     .cd-date {
       position: absolute;
-      width: 100%;
-      left: 137%;
-      top: 6px;
-      font-size: 12px;
+      width: auto;
+      padding: 2px 7px;
+      left: auto;
+      top: -20px;
+      font-size: 11px;
     }
   }
 
   .cd-timeline-content.warning {
-    @include cd-timeline-left-color(rgba($warning, 0.2));
+    @include cd-timeline-left-color(rgba($message-bg, 0.2));
   }
   .cd-timeline-content.danger {
     @include cd-timeline-left-color(rgba($danger, 0.2));
@@ -216,11 +241,11 @@
     @include cd-timeline-left-color(rgba($primary, 0.2));
   }
 
-  .cd-timeline-block:nth-child(even) .cd-timeline-content {
+  .cd-timeline-block.right .cd-timeline-content {
     float: right;
   }
 
-  .cd-timeline-block:nth-child(even) {
+  .cd-timeline-block.right {
     .cd-timeline-content {
       &::before {
         top: 24px;
@@ -231,7 +256,7 @@
       }
 
       &.cd-timeline-content.warning {
-        @include cd-timeline-right-color(rgba($warning, 0.2));
+        @include cd-timeline-right-color(rgba($message-bg, 0.2));
       }
       &.cd-timeline-content.danger {
         @include cd-timeline-right-color(rgba($danger, 0.2));
@@ -242,14 +267,14 @@
     }
   }
 
-  .cd-timeline-block:nth-child(even) {
+  .cd-timeline-block.right {
     .cd-timeline-content {
       .cd-read-more {
         float: right;
       }
       .cd-date {
         left: auto;
-        right: 137%;
+        right: 116%;
         text-align: right;
       }
     }
@@ -268,7 +293,7 @@
 
 @media only screen and (min-width: $resXL) {
   /* inverse bounce effect on even content blocks */
-  .cssanimations .cd-timeline-block:nth-child(even) .cd-timeline-content.bounce-in {
+  .cssanimations .cd-timeline-block.right .cd-timeline-content.bounce-in {
     animation: cd-bounce-2-inverse 0.6s;
   }
 }
