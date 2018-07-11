@@ -16,5 +16,11 @@
   max-height: calc(100vh - 180px);
   display: flex;
   overflow-y: scroll;
+}
 
+
+textarea {
+  //resize: none;
+
+  max-height: 94px;
 }
