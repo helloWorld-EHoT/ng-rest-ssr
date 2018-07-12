@@ -1,3 +1,14 @@
+@keyframes server {
+  0% {background: #FFFFFF;}
+  24% {background: transparent;}
+  26% {background: #FFFFFF;}
+  48% {background: transparent;}
+  50% {background: #FFFFFF;}
+  74% {background: transparent;}
+  76% {background: #FFFFFF;}
+  100% {background: transparent;}
+}
+
 .cd-container {
   display: flex;
   flex-direction: column;
@@ -20,8 +31,70 @@
 }
 
 
-textarea {
+textarea.form-control, input.form-control {
   //resize: none;
-
+  resize: both;
   max-height: 94px;
+}
+
+.current {
+  color: #84ac57;
+}
+
+.online {
+  &:before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    width: 8px;
+    height: 8px;
+    box-shadow: 1px 1px 8px #000;
+    background-color: #4eb14a;
+  }
+}
+
+.cd-timeline-img {
+  i {
+    padding: 6px 9px;
+    font-size: 50px;
+    color: dimgrey;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 13px;
+      right: 6px;
+      width: 5px;
+      height: 5px;
+      background: #FFF;
+      animation: server 8s infinite;
+      z-index: -1;
+    }
+  }
+}
+
+code {
+  white-space: pre;
+}
+
+.remove-message {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 36px;
+  color: #cc2b2b;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  &:hover {
+    color: red;
+  }
+}
+
+.cd-timeline-content {
+  &:hover > .remove-message {
+    opacity: 1;
+    visibility: visible;
+  }
 }

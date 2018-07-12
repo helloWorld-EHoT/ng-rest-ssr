@@ -50,7 +50,7 @@
 
 .cd-timeline-img {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 60px;
   height: 60px;
@@ -176,7 +176,15 @@
   }
 
   .user-message {
+    width: 100%;
+    background: transparent;
+    border: none;
     padding-left: 60px;
+    height: auto;
+    resize: vertical;
+    max-height: 150px;
+    min-height: 52px;
+    white-space: pre-line;
   }
 }
 

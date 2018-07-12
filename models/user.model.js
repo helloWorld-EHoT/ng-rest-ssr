@@ -5,23 +5,30 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
 
-  name: {
-    type: String,
-    required: true
-  },
-  login: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  }
+    // _id: autoincrement
+
+    name: {             // visible name
+        type: String,
+        required: true
+    },
+    email: {            // MD5
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {         // MD5
+        type: String,
+        required: true
+    },
+    assign_chats: {     // Chats ids
+        type: [String],
+        required: false
+    },
+    role: {
+        type: String,
+        required: true,
+        default: 'user'
+    }
 
 });
 
