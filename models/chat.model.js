@@ -27,6 +27,10 @@ const ChatSchema = new Schema({
     messages: {
         type: [String],
         required: false
+    },
+    is_private:  {
+        type: Boolean,
+        required: true
     }
 
 });

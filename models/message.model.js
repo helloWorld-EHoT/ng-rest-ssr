@@ -7,20 +7,28 @@ const MessageSchema = new Schema({
 
     // _id: autoincrement
 
-    content: {             // visible name
+    content: {
         type: String,
         required: true
     },
-    sender: {            // MD5
+    sender: {
         type: String,
         required: true
     },
-    date: {         // MD5
+    sender_id: {
+        type: String,
+        required: true
+    },
+    date: {
         type: String,
         required: true
     },
     chat_id: {
         type: String,
+        required: true
+    },
+    read: {
+        type: Boolean,
         required: true
     }
 

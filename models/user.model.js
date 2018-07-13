@@ -28,6 +28,10 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         default: 'user'
+    },
+    online: {
+        type: Boolean,
+        required: true
     }
 
 });

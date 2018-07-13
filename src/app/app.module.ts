@@ -17,35 +17,37 @@ import {ApiService} from './shared/services/api.service';
 import {RootComponent} from './root/root.component';
 import {LoggedGuard} from './shared/guards/logged.guard';
 import {SocketService} from './shared/services/socket.service';
+import {ChatService} from './shared/services/chat.service';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-    RootComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({appId: 'universal'}),
-    AuthModule,
-    ChatModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserTransferStateModule
-  ],
-  providers: [
-    // Services
-    PlatformService,
-    AuthService,
-    ApiService,
-    SocketService,
-    // Guards
-    AuthGuard,
-    LoggedGuard,
-    RoleGuard
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        PageNotFoundComponent,
+        RootComponent
+    ],
+    imports: [
+        BrowserModule.withServerTransition({appId: 'universal'}),
+        AuthModule,
+        ChatModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserTransferStateModule
+    ],
+    providers: [
+        // Services
+        PlatformService,
+        AuthService,
+        ApiService,
+        SocketService,
+        ChatService,
+        // Guards
+        AuthGuard,
+        LoggedGuard,
+        RoleGuard
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

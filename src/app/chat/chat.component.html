@@ -10,20 +10,20 @@
 
 <aside class="al-sidebar">
   <ul class="al-sidebar-list">
-    <li class="al-sidebar-list-item" routerLinkActive="selected">
-      <a class="al-sidebar-list-link" [routerLink]="['/chat', 'room', 'main-chat']">
+    <li class="al-sidebar-list-item selected">
+      <a class="al-sidebar-list-link">
         <span>Main Chat</span>
         <span class="new-message public">5</span>
         <figure class="notification-ring"></figure>
       </a>
     </li>
-    <li class="al-sidebar-list-item" routerLinkActive="selected">
-      <a class="al-sidebar-list-link" [routerLink]="['/chat', 'private', 'alex']">
-        <span>OurChat</span>
-        <span class="new-message private">22</span>
-        <figure class="notification-ring"></figure>
-      </a>
-    </li>
+    <!--<li class="al-sidebar-list-item">-->
+      <!--<a class="al-sidebar-list-link disabled">-->
+        <!--<span>OurChat</span>-->
+        <!--&lt;!&ndash;<span class="new-message private">22</span>&ndash;&gt;-->
+        <!--<figure class="notification-ring"></figure>-->
+      <!--</a>-->
+    <!--</li>-->
     <li class="al-sidebar-list-item">
       <a class="al-sidebar-list-link disabled">
         <span>Disabled chat-room</span>
@@ -33,4 +33,4 @@
 </aside>
 
 
-<router-outlet></router-outlet>
+<benamix-private></benamix-private>

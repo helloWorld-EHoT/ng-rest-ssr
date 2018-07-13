@@ -1,7 +1,15 @@
 @font-face {
   font-family: 'Montserrat';
-  src: url('#{$fonts-root}Montserrat-Regular.ttf') format('truetype');
+  src: url('#{$fonts-root}Montserrat-Light.ttf') format('truetype');
   font-weight: $font-normal;
+  font-style: normal;
+  text-transform: initial;
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('#{$fonts-root}Montserrat-Black.ttf') format('truetype');
+  font-weight: 700;
   font-style: normal;
   text-transform: initial;
 }

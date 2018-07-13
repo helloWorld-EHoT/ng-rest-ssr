@@ -9,10 +9,30 @@
   100% {background: transparent;}
 }
 
+@keyframes serverMessage {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  20% {
+    opacity: 1;
+    visibility: visible;
+  }
+  80% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .cd-container {
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
 }
 
 .panel.panel-blur {
@@ -33,6 +53,7 @@
 
 textarea.form-control, input.form-control {
   //resize: none;
+  width:  calc(100% - 120px)!important;
   resize: both;
   max-height: 94px;
 }
@@ -73,6 +94,16 @@ textarea.form-control, input.form-control {
   }
 }
 
+.server {
+  position: fixed;
+  bottom: 66px;
+  right: 47px;
+  z-index: 666;
+  min-width: 246px;;
+  animation: serverMessage 6s;
+  animation-fill-mode: forwards;
+}
+
 code {
   white-space: pre;
 }
@@ -96,5 +127,11 @@ code {
   &:hover > .remove-message {
     opacity: 1;
     visibility: visible;
+  }
+}
+
+.user-message {
+  b {
+    font-family: 'Montserrat-Bold', sans-serif !important;
   }
 }

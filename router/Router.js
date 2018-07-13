@@ -36,6 +36,7 @@ const UsersService = {
       .then((user) => {
         if (user) {
           if (user.password === req.body.password) {
+            user.online = true;
             res.send(user);
             res.end();
           }
