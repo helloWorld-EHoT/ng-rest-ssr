@@ -46,13 +46,16 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     // this.goToChat();
-    const value = Object.assign({}, this.registrationForm.value, {login: this.registrationForm.value.login});
+    const value = Object.assign({}, this.registrationForm.value, {login: this.registrationForm.value.login, online: true});
     this.onRegistrationDone(value);
   }
 
   onRegistrationDone(newUser: IUser) {
-    this.api.registrateNewUser(newUser).subscribe(response => {
+    this.api.registrateNewUser(newUser).subscribe((response: IUser) => {
         console.log('User successfully added');
+        this.auth.setUser(response);
+        this.auth.setLoggedState(true);
+        this.router.navigate(['/chat']);
     }, error => {
       console.log(error);
     });

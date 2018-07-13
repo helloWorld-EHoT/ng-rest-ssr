@@ -31,7 +31,7 @@ const UserSchema = new Schema({
     },
     online: {
         type: Boolean,
-        required: true
+        required: false
     }
 
 });

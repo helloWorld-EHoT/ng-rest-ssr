@@ -21,6 +21,8 @@ export class PrivateComponent implements OnInit, OnDestroy {
     message = '';
     currentUser: IUser;
 
+    // onlineUsers: IUser[] = [];
+
     chatId = 'our';
 
     @HostListener('document:keypress', ['$event'])
@@ -48,6 +50,14 @@ export class PrivateComponent implements OnInit, OnDestroy {
                     });
                 } else {
                     if (msg.sender_id === '666') {
+                      // const splitArr = msg.content.split('@');
+                      // if (splitArr[splitArr.length - 1] === ' connected') {
+                      //   console.log(msg.chat_id);
+                      //   this.auth.getUserById(msg.chat_id).subscribe((user: IUser) => {
+                      //
+                      //     this.onlineUsers.indexOf(user) === -1 ? this.onlineUsers.push(user) : console.log(user);
+                      //   });
+                      // }
                         this.serverMessages.push(msg);
                         setTimeout(() => {
                             this.serverMessages.forEach((serverMessage, i, array) => {
@@ -76,6 +86,16 @@ export class PrivateComponent implements OnInit, OnDestroy {
             message: ['', [Validators.required]]
         });
 
+      const status = {
+        content: 'USER_CONNECTED',
+        sender_id: this.currentUser._id,
+        sender: this.currentUser.name,
+        date: Date.now().toString(),
+        chat_id: this.chatId,
+        read: false
+      };
+      this.socket$.next(JSON.stringify(status));
+
         this.chat.getAll().subscribe((chatMessages: IMessage[]) => {
             this.serverMessages = chatMessages;
         }, error => {
@@ -93,7 +113,6 @@ export class PrivateComponent implements OnInit, OnDestroy {
             read: false
         };
         this.socket$.next(JSON.stringify(status));
-        console.log(status);
         this.socket$.unsubscribe();
     }
 
@@ -106,12 +125,6 @@ export class PrivateComponent implements OnInit, OnDestroy {
             chat_id: this.chatId,
             read: false
         };
-        console.log(message);
-        // this.chat.sendMessage(message).subscribe((chatMessages) => {
-        //     console.log(chatMessages);
-        // }, error => {
-        //     console.log(error);
-        // });
         this.socket$.next(JSON.stringify(message));
         this.message = '';
     }

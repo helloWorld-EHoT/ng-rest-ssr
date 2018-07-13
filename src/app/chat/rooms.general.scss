@@ -62,7 +62,7 @@ textarea.form-control, input.form-control {
   color: #84ac57;
 }
 
-.online {
+.online, .online-users {
   &:before {
     content: '';
     position: absolute;

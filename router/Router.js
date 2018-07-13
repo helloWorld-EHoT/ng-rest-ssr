@@ -55,6 +55,7 @@ const UsersService = {
     user.save()
       .then(newUser => {
         console.log(newUser);
+        res.send(newUser);
         res.end();
       })
       .catch(err => {
@@ -117,7 +118,8 @@ apiRouter.post('/', (req, res) => {
     name: req.body.name,
     login: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    online: true
   };
 
   let user = new UserListDB(config);

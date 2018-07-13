@@ -6,9 +6,9 @@
     </a>
     <ul class="top-dropdown-menu profile-dropdown dropdown-menu">
       <li><i class="dropdown-arr"></i></li>
-      <li><a routerLink="profile"><i class="fa fa-user"></i>Profile</a></li>
-      <li><a routerLink="settings"><i class="fa fa-cog"></i>Settings</a></li>
-      <li><a class="signout" (click)="logOut()"><i class="fa fa-power-off"></i>Sign out</a></li>
+      <li><a [routerLink]="['/user', 'profile']"><i class="fa fa-user"></i>Profile</a></li>
+      <li><a [routerLink]="['/user', 'settings']"><i class="fa fa-cog"></i>Settings</a></li>
+      <li><a class="sign-out" (click)="logOut()"><i class="fa fa-power-off"></i>Sign out</a></li>
     </ul>
   </div>
 

@@ -25,6 +25,10 @@ export class ApiService {
   //   );
   }
 
+  getUserById(id: string) {
+    return this.http.get(`http://localhost:3000/api/${id}`);
+  }
+
   getUserToEmail(email: string, password: string) {
     return this.http.post(`http://localhost:3000/api/auth/`, {email, password});
   }

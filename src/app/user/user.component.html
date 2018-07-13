@@ -1,29 +1,27 @@
 <div class="page-top">
-  <a class="al-logo">
+  <a class="al-logo" [routerLink]="['/chat']">
     <span>Chat</span>
     App
   </a>
   <a class="collapse-menu-link ion-navicon"></a>
-  <benamix-user></benamix-user>
-
 </div>
 
 <aside class="al-sidebar">
   <ul class="al-sidebar-list">
     <li class="al-sidebar-list-item selected">
       <a class="al-sidebar-list-link">
-        <span>Main Chat</span>
-        <span class="new-message public">5</span>
-        <figure class="notification-ring"></figure>
+        <span>Credentials</span>
+        <!--<span class="new-message public">5</span>-->
+        <!--<figure class="notification-ring"></figure>-->
       </a>
     </li>
     <li class="al-sidebar-list-item">
       <a class="al-sidebar-list-link disabled">
-        <span>Disabled chat-room</span>
+        <span>Disabled link</span>
       </a>
     </li>
   </ul>
 </aside>
 
 
-<benamix-private></benamix-private>
+<router-outlet></router-outlet>

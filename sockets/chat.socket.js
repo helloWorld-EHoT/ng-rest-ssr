@@ -13,6 +13,21 @@ wsServer.on('connection', (ws) => {
     ChatService.setWsConnection(ws);
     ChatService.wsClients = wsServer.clients;
 
+  wsServer.clients.forEach(client => {
+    if (client != ws) {
+      client.send(JSON.stringify({
+        sender: 'server',
+        sender_id: '666',
+        content: `${'user'} connected`,
+        date: Date.now().toString(),
+        chat_id: 'our',
+        read: true,
+        online: true
+      }));
+    }
+
+  });
+
     ws.on('message', (message) => {
 
         console.log('received: %s', message);
@@ -34,6 +49,20 @@ wsServer.on('connection', (ws) => {
                         }));
                     });
 
+            } else if (status.content === 'USER_CONNECTED') {
+              wsServer.clients.forEach(client => {
+                if (client != ws) {
+                  client.send(JSON.stringify({
+                    sender: 'server',
+                    sender_id: '666',
+                    content: `${status.sender}@ connected`,
+                    date: Date.now().toString(),
+                    chat_id: `${status.sender_id}`,
+                    read: true,
+                    online: true
+                  }));
+                }
+              });
             } else {
                 ChatService.saveMessage(message, wsServer.clients);
             }

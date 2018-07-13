@@ -18,36 +18,38 @@ import {RootComponent} from './root/root.component';
 import {LoggedGuard} from './shared/guards/logged.guard';
 import {SocketService} from './shared/services/socket.service';
 import {ChatService} from './shared/services/chat.service';
+import {UserModule} from './user/user.module';
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        PageNotFoundComponent,
-        RootComponent
-    ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'universal'}),
-        AuthModule,
-        ChatModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserTransferStateModule
-    ],
-    providers: [
-        // Services
-        PlatformService,
-        AuthService,
-        ApiService,
-        SocketService,
-        ChatService,
-        // Guards
-        AuthGuard,
-        LoggedGuard,
-        RoleGuard
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    RootComponent
+  ],
+  imports: [
+    BrowserModule.withServerTransition({appId: 'universal'}),
+    AuthModule,
+    ChatModule,
+    UserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserTransferStateModule
+  ],
+  providers: [
+    // Services
+    PlatformService,
+    AuthService,
+    ApiService,
+    SocketService,
+    ChatService,
+    // Guards
+    AuthGuard,
+    LoggedGuard,
+    RoleGuard
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

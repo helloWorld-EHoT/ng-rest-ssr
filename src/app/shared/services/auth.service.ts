@@ -66,4 +66,8 @@ export class AuthService {
     this.isLoggedIn = state;
   }
 
+  getUserById(id: string) {
+    return this.api.getUserById(id);
+  }
+
 }
