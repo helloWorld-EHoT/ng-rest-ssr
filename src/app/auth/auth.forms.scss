@@ -12,11 +12,19 @@
       font-size: 12px;
       font-weight: bold;
       user-select: none;
+      a {
+        cursor: pointer;
+      }
     }
     &.visible {
       opacity: 1;
     }
   }
+}
+
+.on-error {
+  border: 1px solid firebrick;
+  box-shadow: 0 0 10px rgba(178, 34, 34, 0.75);
 }
 
 .form-horizontal {
@@ -50,6 +58,9 @@
       border-color: transparent;
       & ~ .error-message.visible {
         opacity: 0 !important;
+        a {
+          cursor: pointer;
+        }
       }
     }
   }

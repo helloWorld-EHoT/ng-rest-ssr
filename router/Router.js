@@ -6,7 +6,7 @@ const apiRouter = express.Router();
 const mongoose = require('mongoose');
 
 require('../models/user.model');
-
+const crypto = require('crypto');
 const UserListDB = mongoose.model('user');
 
 const UsersService = {
@@ -31,17 +31,21 @@ const UsersService = {
       });
   },
 
-  getUserToEmail(req, res) {
-    UserListDB.findOne({email: {$eq: req.body.email}})
+  getUserByEmail(req, res) {
+    UserListDB.findOne({email: {$eq: this.getHash(req.body.email)}})
       .then((user) => {
         if (user) {
-          if (user.password === req.body.password) {
+          if (user.password === this.getHash(req.body.password)) {
             user.online = true;
             res.send(user);
             res.end();
+          } else {
+            res.send('PASS');
+            res.end();
           }
         } else {
-          res.send('Password is incorrect');
+          res.send('MAIL');
+          res.end();
         }
       })
       .catch(err => {
@@ -54,7 +58,7 @@ const UsersService = {
 
     user.save()
       .then(newUser => {
-        console.log(newUser);
+        // console.log(newUser);
         res.send(newUser);
         res.end();
       })
@@ -84,43 +88,70 @@ const UsersService = {
     // UserListDB.find({_id: req.params.id})
     UserListDB.find({_id: req.params.id})
       .remove()
-      .then(newUser => {
-        console.log(newUser);
+      .then(() => {
+        // console.log(newUser);
         res.end();
       })
       .catch(err => {
         console.log(err);
       });
+  },
+
+  isEmailAvailable(req, res) {
+    UserListDB.findOne({email: {$eq: this.getHash(req.params.email)}})
+      .then((user) => {
+        if (!user) {
+          res.send({});
+            res.end();
+        } else {
+          res.send(user);
+          res.end();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+
+  getHash(inputString) {
+    const outputString = crypto.createHash('md5').update(inputString).digest('hex');
+    return outputString;
   }
 };
 
+// get all users
 apiRouter.get('/', (req, res) => {
 
   UsersService.getAllUsers(req, res);
 
 });
 
+// get user by id
 apiRouter.get('/:id', (req, res) => {
 
   UsersService.getUserById(req, res);
 
 });
 
+// get user by email
 apiRouter.post('/auth/', (req, res) => {
 
-  UsersService.getUserToEmail(req, res);
+  UsersService.getUserByEmail(req, res);
 
 });
 
+// add new user to db
 apiRouter.post('/', (req, res) => {
 
   let config = {
     name: req.body.name,
     login: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
+    email: UsersService.getHash(req.body.email),
+    password: UsersService.getHash(req.body.password),
     online: true
   };
+
+  // console.log(crypto.createHash('md5').update(req.body.email).digest('hex'));
 
   let user = new UserListDB(config);
 
@@ -128,15 +159,24 @@ apiRouter.post('/', (req, res) => {
 
 });
 
+// update user by id
 apiRouter.put('/', (req, res) => {
 
   UsersService.updateUser(req, res);
 
 });
 
+// delete user by id
 apiRouter.delete('/:id', (req, res) => {
 
   UsersService.deleteUserById(req, res);
+
+});
+
+// get user by id
+apiRouter.get('/email/:email', (req, res) => {
+
+  UsersService.isEmailAvailable(req, res);
 
 });
 

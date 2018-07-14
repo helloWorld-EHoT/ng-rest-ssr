@@ -1,7 +1,11 @@
 <h1>Войти в Чат</h1>
 <a [routerLink]="['/auth', 'registration']" class="auth-link">Новичок в чате? Зарегистрируйся!</a>
 
-<form class="form-horizontal" [formGroup]="loginForm" autocomplete="off" (submit)="OnSubmit()">
+<form
+  class="form-horizontal"
+  [formGroup]="loginForm"
+  autocomplete="off"
+  (submit)="onSubmit($event)">
   <input autocomplete="off" name="hidden" type="text" style="display:none;">
   <div class="form-group">
     <div class="col-sm-12 control">
@@ -13,7 +17,9 @@
         formControlName="email"
         [class.not-empty]="visitor.email.length > 0"
         [class.error]="loginForm.controls['email'].errors && loginForm.controls['email'].touched"
+        [class.on-error]="onLoginError.type === 'MAIL'"
         required
+        (focus)="onErrorFocus()"
         autocomplete="off">
       <label for="inputEmail" class="control-label">Почта</label>
       <div class="error-message"
@@ -21,6 +27,10 @@
            [class.visible]="loginForm.controls['email'].errors">
         <p [hidden]="!loginForm.controls['email'].errors.required">Почта обязательна для ввода!</p>
         <p [hidden]="!loginForm.controls['email'].errors.patternInvalid">Вероятно в почте опечатка!</p>
+        <p [hidden]="!loginForm.controls['email'].errors.emailExist">
+          Почта еще не зарегистрирована.
+          <a (click)="goToRegistration()" class="enter">Зарегистрировать?</a>
+        </p>
       </div>
     </div>
   </div>
@@ -34,7 +44,9 @@
         formControlName="password"
         [class.not-empty]="visitor.password.length > 0"
         [class.error]="loginForm.controls['password'].errors && loginForm.controls['password'].touched"
+        [class.on-error]="onLoginError.type === 'PASS'"
         required
+        (focus)="onErrorFocus()"
         autocomplete="off"
         minlength="6">
       <label for="inputPassword" class="control-label">Пароль</label>

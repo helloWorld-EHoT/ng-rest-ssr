@@ -43,6 +43,10 @@
            [class.visible]="registrationForm.controls['email'].errors">
         <p [hidden]="!registrationForm.controls['email'].errors.required">Почта обязательна для ввода!</p>
         <p [hidden]="!registrationForm.controls['email'].errors.patternInvalid">Вероятно в почте опечатка!</p>
+        <p [hidden]="!registrationForm.controls['email'].errors.emailExist">
+          Пользователь с такой почтой уже есть.
+          <a (click)="goToLogin()" class="enter">Войти?</a>
+        </p>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import {IUser} from '../models/user.model';
 import {ApiService} from './api.service';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -16,17 +17,8 @@ export class AuthService {
               @Inject(PLATFORM_ID) private platformId
   ) {}
 
-  login(user: IUser): any {
-    this.api.getUserToEmail(user.email, user.password).subscribe((response: IUser) => {
-      this.setUser(response);
-      this.setLoggedState(true);
-
-      // Navigate
-      this.router.navigate(['/chat']);
-      console.log(response);
-    }, error => {
-      console.log(error);
-    });
+  login(user: IUser): Observable<any> {
+    return this.api.getUserByEmailAndPassword(user.email.toLowerCase(), user.password);
   }
 
   logOut() {

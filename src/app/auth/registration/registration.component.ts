@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IUser} from '../../shared/models/user.model';
-import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {patternValidator} from '../../shared/validators/pattern-validator';
 import {AuthService} from '../../shared/services/auth.service';
 import {ApiService} from '../../shared/services/api.service';
@@ -25,6 +25,7 @@ export class RegistrationComponent implements OnInit {
     private auth: AuthService,
     private api: ApiService,
     private router: Router,
+    private route: ActivatedRoute,
     private builder: FormBuilder
   ) { }
 
@@ -35,29 +36,43 @@ export class RegistrationComponent implements OnInit {
   initForm() {
     this.registrationForm = this.builder.group({
       name: ['', [Validators.required, Validators.minLength]],
-      email: ['', [Validators.required, patternValidator()]],
+      email: ['', [Validators.required, patternValidator()], this.emailExistValidator.bind(this)],
       password: ['', [Validators.required, Validators.minLength]]
     });
+    if (this.route.snapshot.queryParams.mail) {
+      this.newVisitor.email = this.route.snapshot.queryParams.mail;
+    }
   }
 
-  // goToChat() {
-  //   this.router.navigate(['/chat']);
-  // }
+  goToLogin() {
+    this.router.navigate(['/auth', 'login'], {queryParams: {mail: this.newVisitor.email}});
+  }
 
   onSubmit() {
-    // this.goToChat();
     const value = Object.assign({}, this.registrationForm.value, {login: this.registrationForm.value.login, online: true});
     this.onRegistrationDone(value);
   }
 
   onRegistrationDone(newUser: IUser) {
-    this.api.registrateNewUser(newUser).subscribe((response: IUser) => {
-        console.log('User successfully added');
+    newUser.email = newUser.email.toLowerCase();
+    this.api.addNewUserToDb(newUser).subscribe((response: IUser) => {
         this.auth.setUser(response);
         this.auth.setLoggedState(true);
         this.router.navigate(['/chat']);
     }, error => {
       console.log(error);
+    });
+  }
+
+  emailExistValidator(control: FormControl): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.api.getUserByEmail(control.value.toLowerCase()).subscribe((user: IUser) => {
+        if (user) {
+          resolve({emailExist: true});
+        } else {
+          resolve(null);
+        }
+      });
     });
   }
 
