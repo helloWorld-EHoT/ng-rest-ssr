@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {IUser} from '../../shared/models/user.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {patternValidator} from '../../shared/validators/pattern-validator';
-import {AuthService} from '../../shared/services/auth.service';
-import {ApiService} from '../../shared/services/api.service';
+import { IUser } from '../../shared/models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { patternValidator } from '../../shared/validators/pattern-validator';
+import { AuthService } from '../../shared/services/auth.service';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'benamix-registration',
@@ -27,7 +27,8 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private builder: FormBuilder
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -56,9 +57,7 @@ export class RegistrationComponent implements OnInit {
   onRegistrationDone(newUser: IUser) {
     newUser.email = newUser.email.toLowerCase();
     this.api.addNewUserToDb(newUser).subscribe((response: IUser) => {
-        this.auth.setUser(response);
-        this.auth.setLoggedState(true);
-        this.router.navigate(['/chat']);
+      this.router.navigate(['/auth', 'login'], {queryParams: {mail: this.newVisitor.email}});
     }, error => {
       console.log(error);
     });
@@ -67,7 +66,7 @@ export class RegistrationComponent implements OnInit {
   emailExistValidator(control: FormControl): Promise<any> {
     return new Promise((resolve, reject) => {
       this.api.getUserByEmail(control.value.toLowerCase()).subscribe((user: IUser) => {
-        if (user) {
+        if (user && user.name) {
           resolve({emailExist: true});
         } else {
           resolve(null);

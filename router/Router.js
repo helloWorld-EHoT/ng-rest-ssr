@@ -31,6 +31,21 @@ const UsersService = {
       });
   },
 
+  getAllOnlineUsers() {
+    return UserListDB.find({online: true});
+  },
+
+  setOnlineById(id, state) {
+    UserListDB.findOne({_id: id})
+      .then(user => {
+        user.online = state;
+        user.save();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+
   getUserByEmail(req, res) {
     UserListDB.findOne({email: {$eq: this.getHash(req.body.email)}})
       .then((user) => {
@@ -180,4 +195,4 @@ apiRouter.get('/email/:email', (req, res) => {
 
 });
 
-module.exports = apiRouter;
+module.exports = {apiRouter, UsersService};

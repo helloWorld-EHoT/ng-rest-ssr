@@ -46,10 +46,10 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
-  setUser(user: IUser) {
+  setUser(user: IUser, save: boolean) {
     this.user = user;
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && save) {
       window.localStorage.setItem('user', JSON.stringify(user));
     }
   }

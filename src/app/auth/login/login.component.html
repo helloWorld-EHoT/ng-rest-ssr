@@ -1,5 +1,10 @@
 <h1>Войти в Чат</h1>
 <a [routerLink]="['/auth', 'registration']" class="auth-link">Новичок в чате? Зарегистрируйся!</a>
+<input
+  type="checkbox"
+  class="form-control hidden"
+  id="rememberMe"
+  [(ngModel)]="rememberMe">
 
 <form
   class="form-horizontal"
@@ -58,6 +63,11 @@
       </div>
     </div>
   </div>
+  <div class="form-group remember">
+    <div class="col-sm-12 control">
+      <label for="rememberMe" class="control-label checkbox-view">Запомнить меня</label>
+    </div>
+  </div>
   <div class="form-group">
     <div class="col-sm-12 center-block">
       <button
@@ -69,6 +79,7 @@
     </div>
   </div>
 </form>
+
 
 <div class="auth-sep"><span><span>или войди в один клик</span></span></div>
 

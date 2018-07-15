@@ -1,9 +1,10 @@
-import {Component, OnInit, Output} from '@angular/core';
-import {AuthService} from '../../shared/services/auth.service';
-import {IUser} from '../../shared/models/user.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {patternValidator} from '../../shared/validators/pattern-validator';
+import { Component, OnInit, Output } from '@angular/core';
+import { AuthService } from '../../shared/services/auth.service';
+import { IUser } from '../../shared/models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { patternValidator } from '../../shared/validators/pattern-validator';
+
 // import {ApiService} from '../../shared/services/api.service';
 
 @Component({
@@ -20,7 +21,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  onLoginError: {state: boolean, type: string} = {
+  rememberMe = false;
+
+  onLoginError: { state: boolean, type: string } = {
     state: false,
     type: ''
   };
@@ -31,7 +34,8 @@ export class LoginComponent implements OnInit {
     private builder: FormBuilder,
     // private api: ApiService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -43,12 +47,14 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.builder.group({
+      // TODO: Если нжуно активировать проверку на сервере наличие почты в базе при логине (Вызов)
       // email: ['', [Validators.required, patternValidator()], this.emailExistValidator.bind(this)],
       email: ['', [Validators.required, patternValidator()]],
       password: ['', [Validators.required, Validators.minLength]]
     });
   }
-  // TODO: DEBUG MODE
+
+  // TODO: DEBUG MODE - Удалить перед билдом.
   getAll() {
     this.auth.getAll().subscribe(
       response => {
@@ -62,11 +68,11 @@ export class LoginComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
     this.auth.login(this.loginForm.value).subscribe((response: IUser) => {
-      // this.auth.setUser(response);
-      // this.auth.setLoggedState(true);
+      this.auth.setUser(response, this.rememberMe);
+      this.auth.setLoggedState(true);
       console.log(response);
       // Navigate
-      // this.router.navigate(['/chat']);
+      this.router.navigate(['/chat']);
       console.log(response);
     }, error => {
       // this.auth.setLoggedState(false);
@@ -85,6 +91,7 @@ export class LoginComponent implements OnInit {
     };
   }
 
+  // TODO: Если нжуно активировать проверку на сервере наличие почты в базе при логине (Метод)
   // emailExistValidator(control: FormControl): Promise<any> {
   //   return new Promise((resolve, reject) => {
   //     this.api.getUserByEmail(control.value.toLowerCase()).subscribe((user: IUser) => {

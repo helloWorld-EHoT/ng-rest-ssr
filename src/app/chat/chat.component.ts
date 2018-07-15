@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '../shared/services/auth.service';
 
 @Component({
   selector: 'benamix-chat',
@@ -9,9 +8,10 @@ import {AuthService} from '../shared/services/auth.service';
 })
 export class ChatComponent implements OnInit {
 
+  // @ViewChild(PrivateComponent) room;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
 }
