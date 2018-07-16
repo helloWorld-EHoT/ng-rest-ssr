@@ -67,16 +67,11 @@ export class PrivateComponent implements OnInit, OnDestroy {
                 } else {
                     if (msg.sender_id === '666' && msg.content === 'ONLINE_USERS') {
                         if (msg.chat_id instanceof Array && msg.chat_id.length) {
+
                             this.onlineUsers = msg.chat_id;
+
+                          console.log(this.onlineUsers);
                         }
-                        // this.serverMessages.push(msg);
-                        // setTimeout(() => {
-                        //     this.serverMessages.forEach((serverMessage, i, array) => {
-                        //         if (serverMessage.sender_id === '666') {
-                        //             array.splice(i, 1);
-                        //         }
-                        //     });
-                        // }, 6666);
                     } else {
                         this.serverMessages.push(msg);
                     }

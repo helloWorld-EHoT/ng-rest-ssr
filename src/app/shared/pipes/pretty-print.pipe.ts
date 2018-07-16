@@ -35,12 +35,10 @@ export class PrettyPrintPipe implements PipeTransform {
     transformString(input: string, separator: string, tag: string) {
         const inputArray: string[] = input.split(separator);
         if (separator === '&laquo;') {
-            console.log(1);
 
             return input.replace(this.regexpStart, tag);
 
         } else if (separator === '&raquo;') {
-            console.log(2);
 
             return input.replace(this.regexpEnd, tag);
 
@@ -74,11 +72,11 @@ export class PrettyPrintPipe implements PipeTransform {
         // if stroked '--' contains
         outputString = this.transformString(outputString, '--', 'strike');
         if (this.regexpStart.test(outputString)) {
-            // if stroked '<>' contains
+            // if stroked '&laquo;' contains
             outputString = this.transformString(outputString, '&laquo;', '<div class="quote">');
 
         } else if (this.regexpEnd.test(outputString)) {
-            // if stroked '<>' contains
+            // if stroked '&raquo;' contains
             outputString = this.transformString(outputString, '&raquo;', '</div>');
 
         }
