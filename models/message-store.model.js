@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-require('./models/message.model');
+require('./models/messageTextField.model');
 
 const MessageStoreSchema = new Schema({
 

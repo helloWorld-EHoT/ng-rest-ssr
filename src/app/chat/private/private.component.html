@@ -29,12 +29,14 @@
                         [class.current]="message.sender_id === currentUser._id">
                       {{ message.sender }}
                     </h5>
-                    <div class="user-message" [innerHtml]="message.content | prettyPrint">
+                    <div class="user-message" [innerHtml]="message.content | prettyPrint" (select)="onMessageSelect($event, message)">
 
                     </div>
                     <span class="cd-date">{{ message.date | date:'medium' }}</span>
                     <span class="remove-message" *ngIf="message.sender === currentUser.name"
-                          (click)="removeMessage(message._id)">&times;</span>
+                          (click)="removeMessage(message._id)"><i class="fas fa-times"></i></span>
+                      <span class="quote-message"
+                            (click)="quoteMessage(message)"><i class="fas fa-quote-right"></i></span>
                   </div>
                 </div>
               </section>
@@ -44,17 +46,33 @@
                     (submit)="onSubmit()">
                 <div class="form-group col-md-12">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 send-flex">
                       <textarea class="form-control"
                                 placeholder="Текст сообщения..."
                                 rows="2"
-                                [(ngModel)]="message"
+                                [(ngModel)]="messageTextField"
+                                (mouseup)="selectionChange($event)"
                                 required
+                                autofocus
+                                id="message-text-area"
                                 formControlName="message"></textarea>
-                      <button type="submit" class="btn btn-default btn-raised"
-                              [disabled]="!sendForm.valid">
-                        Отправить
-                      </button>
+                        <span class="clear-message" *ngIf="messageTextField.length > 0"
+                              (click)="clearField()"><i class="fas fa-times"></i></span>
+                        <div class="instruction">
+                            <button type="submit" class="btn btn-default btn-raised"
+                                    [disabled]="!sendForm.valid">
+                                Отправить
+                            </button>
+                            <div class="instruction-list" [class.enabled-mods]="placement.selection.length > 0">
+                                <div class="instruction-item" (click)="replaceExtension('*')" [innerHTML]="instruction.bold | prettyPrint "></div>
+                                <div class="instruction-item" (click)="replaceExtension('~')" [innerHTML]="instruction.italic | prettyPrint "></div>
+                                <div class="instruction-item" (click)="replaceExtension('^')" [innerHTML]="instruction.header | prettyPrint "></div>
+                                <div class="instruction-item" (click)="replaceExtension('_')" [innerHTML]="instruction.underlined | prettyPrint"></div>
+                                <div class="instruction-item" (click)="replaceExtension('``')" [innerHTML]="instruction.sub | prettyPrint "></div>
+                                <div class="instruction-item" (click)="replaceExtension(',,')" [innerHTML]="instruction.sup | prettyPrint "></div>
+                                <div class="instruction-item" (click)="replaceExtension('--')" [innerHTML]="instruction.strike | prettyPrint "></div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                 </div>

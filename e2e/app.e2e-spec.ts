@@ -7,7 +7,7 @@ describe('ng-rest-ssr App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display welcome messageTextField', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('Welcome to benamix!');
   });

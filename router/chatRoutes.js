@@ -143,9 +143,9 @@ chatRouter.get('/:id', (req, res) => {
 //         chat_id: req.body.chat_id
 //     };
 //
-//     let message = new MessageListDB(requestMessage);
+//     let messageTextField = new MessageListDB(requestMessage);
 //
-//     ChatService.saveMessage(req, res, message);
+//     ChatService.saveMessage(req, res, messageTextField);
 //
 // });
 

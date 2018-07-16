@@ -18,7 +18,7 @@ export class AuthService {
   ) {}
 
   login(user: IUser): Observable<any> {
-    return this.api.getUserByEmailAndPassword(user.email.toLowerCase(), user.password);
+    return this.api.getUserByEmailAndPassword(user.email.trim().toLowerCase(), user.password);
   }
 
   logOut() {

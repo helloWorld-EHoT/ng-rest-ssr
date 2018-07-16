@@ -55,7 +55,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegistrationDone(newUser: IUser) {
-    newUser.email = newUser.email.toLowerCase();
+    newUser.email = newUser.email.trim().toLowerCase();
     this.api.addNewUserToDb(newUser).subscribe((response: IUser) => {
       this.router.navigate(['/auth', 'login'], {queryParams: {mail: this.newVisitor.email}});
     }, error => {
