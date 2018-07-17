@@ -6,7 +6,7 @@ const WebSocket = require('ws');
 const wsServer = new WebSocket.Server({server});
 
 const ChatService = require('../router/chatRoutes').ChatService;
-const UserService = require('../router/Router').UsersService;
+const UserService = require('../router/userRouter').UsersService;
 
 wsServer.on('connection', (ws) => {
 

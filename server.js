@@ -28,7 +28,7 @@ app.set('view engine', 'html');
 app.set('views', 'dist');
 
 
-const apiRouter = require('./router/Router').apiRouter;
+const apiRouter = require('./router/userRouter').apiRouter;
 const chatRouter = require('./router/chatRoutes').chatRouter;
 app.use('/api', apiRouter);
 app.use('/chat', chatRouter);
