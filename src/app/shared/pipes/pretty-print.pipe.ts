@@ -14,8 +14,8 @@ export class PrettyPrintPipe implements PipeTransform {
     public regexpEnd: RegExp;
 
     constructor(private _sanitizer: DomSanitizer) {
-       this.regexpStart = new RegExp(/&laquo;+/g);
-       this.regexpEnd = new RegExp(/&raquo;+/g);
+       this.regexpStart = new RegExp(/"quote-start"+/g);
+       this.regexpEnd = new RegExp(/"quote-end"+/g);
     }
 
     transform(input: string): SafeHtml {
@@ -34,11 +34,11 @@ export class PrettyPrintPipe implements PipeTransform {
 
     transformString(input: string, separator: string, tag: string) {
         const inputArray: string[] = input.split(separator);
-        if (separator === '&laquo;') {
+        if (separator === 'quote-start') {
 
             return input.replace(this.regexpStart, tag);
 
-        } else if (separator === '&raquo;') {
+        } else if (separator === 'quote-end') {
 
             return input.replace(this.regexpEnd, tag);
 
@@ -71,13 +71,13 @@ export class PrettyPrintPipe implements PipeTransform {
         outputString = this.transformString(outputString, '``', 'sup');
         // if stroked '--' contains
         outputString = this.transformString(outputString, '--', 'strike');
-        if (this.regexpStart.test(outputString)) {
+        if (this.regexpStart.test(outputString) && this.regexpEnd.test(outputString)) {
             // if stroked '&laquo;' contains
-            outputString = this.transformString(outputString, '&laquo;', '<div class="quote">');
-
-        } else if (this.regexpEnd.test(outputString)) {
-            // if stroked '&raquo;' contains
-            outputString = this.transformString(outputString, '&raquo;', '</div>');
+            console.log(outputString);
+            outputString = this.transformString(outputString, 'quote-start', '<div class="quote">');
+            console.log(outputString);
+            outputString = this.transformString(outputString, 'quote-end', '</div>');
+            console.log(outputString);
 
         }
 

@@ -192,8 +192,8 @@ export class PrivateComponent implements OnInit, OnDestroy {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const fD = new Date(parseInt(message.date, 10));
         const date = `${fD.getDate()} ${months[fD.getMonth()]} ${fD.getFullYear()} ${fD.getHours()}:${fD.getMinutes()}:${fD.getSeconds()}`;
-        const quote = ` &laquo; _${message.sender}_ \`\`${date}\`\`
-        ${message.content} &raquo; \n`;
+        const quote = ` "quote-start" ~&laquo;${message.sender}&raquo;~ \`\`${date}\`\`
+        ${message.content} "quote-end" \n`;
             this.messageTextField = this.messageTextField + quote;
     }
 

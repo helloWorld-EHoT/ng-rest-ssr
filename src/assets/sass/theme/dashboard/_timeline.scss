@@ -186,7 +186,7 @@
     min-height: 52px;
     white-space: pre-line;
     position: relative;
-    padding-bottom: 5px;
+    padding: 5px 0;
     b {
       font-family: 'Montserrat-Bold', sans-serif !important;
     }
@@ -194,16 +194,42 @@
       margin-bottom: 0 !important;
     }
     .quote {
-      padding-left: 15px;
       position: relative;
+      padding-left: 10px;
+      color: rgba(178, 178, 178, 0.42);
+      transition: all 0.2s ease-out;
+
+      & > i:first-child {
+        height: 20px;
+        font-size: 20px;
+        margin-right: 20px;
+        display: inline-block;
+        color: rgba(178, 178, 178, 0.42);
+        transition: all 0.2s ease-out;
+      }
+
       &:before {
         content: '';
         position: absolute;
-        left: -17px;
+        left: 0;
         top: 0;
         height: 100%;
         width: 5px;
-        background-color: #fff;
+        background-color: $help-text-b2;
+        
+      }
+      &:hover {
+        color: rgba(238, 238, 238, 0.75);
+        &:before {
+          background-color: #EEEEEE;
+        }
+        & > i:first-child {
+          height: 20px;
+          font-size: 20px;
+          margin-right: 20px;
+          display: inline-block;
+          color: rgba(235, 235, 235, 0.9);
+        }
       }
     }
   }
