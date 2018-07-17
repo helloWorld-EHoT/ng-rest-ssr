@@ -46,7 +46,16 @@ export class PrettyPrintPipe implements PipeTransform {
             if (inputArray.length > 2) {
                 inputArray.forEach((elem, index, array) => {
                     if (index % 2 && index !== array.length - 1) {
+                      if (tag === 'emo') {
+                        if (!array[index - 1].length && !array[index + 1].length) {
+                          array[index] = `<i class="emo sm benamix-sm-${elem}"></i>`;
+                        } else {
+                          array[index] = `<i class="emo xsm benamix-xsm-${elem}"></i>`;
+                        }
+
+                      } else {
                         array[index] = `<${tag}>${elem}</${tag}>`;
+                      }
                     }
                 });
             }
@@ -71,6 +80,9 @@ export class PrettyPrintPipe implements PipeTransform {
         outputString = this.transformString(outputString, '``', 'sup');
         // if stroked '--' contains
         outputString = this.transformString(outputString, '--', 'strike');
+      // if stroked '::' contains
+      outputString = this.transformString(outputString, '::', 'emo');
+
         if (this.regexpStart.test(outputString) && this.regexpEnd.test(outputString)) {
             // if stroked '&laquo;' contains
             console.log(outputString);
@@ -78,7 +90,6 @@ export class PrettyPrintPipe implements PipeTransform {
             console.log(outputString);
             outputString = this.transformString(outputString, 'quote-end', '</div>');
             console.log(outputString);
-
         }
 
         // if messageTextField contains emails
