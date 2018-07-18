@@ -1,6 +1,8 @@
 const express = require('express');
 const apiRouter = express.Router();
 
+const data = require('../icon-data/emo.json');
+
 // const usersService = require('../db/dbService');
 
 const mongoose = require('mongoose');
