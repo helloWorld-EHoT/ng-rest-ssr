@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IUser} from '../models/user.model';
 import 'rxjs/add/operator/map';
@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) {
-
+  constructor(private http: HttpClient,
+              @Inject('BASE_URL') private baseUrl: string) {
   }
 
   // registrateNewUser(newUser: IUser) {
@@ -15,23 +15,23 @@ export class ApiService {
   // }
 
   addNewUserToDb(user: IUser) {
-    return this.http.post('http://localhost:3000/api/', user);
+    return this.http.post(`${this.baseUrl}api/`, user);
   }
 
   getUserById(id: string) {
-    return this.http.get(`http://localhost:3000/api/${id}`);
+    return this.http.get(`${this.baseUrl}api/${id}`);
   }
 
   getUserByEmailAndPassword(email: string, password: string) {
-    return this.http.post(`http://localhost:3000/api/auth/`, {email, password});
+    return this.http.post(`${this.baseUrl}api/auth/`, {email, password});
   }
 
   getUserByEmail(email: string) {
-    return this.http.get(`http://localhost:3000/api/email/${email}`);
+    return this.http.get(`${this.baseUrl}api/email/${email}`);
   }
 
   getUsers() {
-    return this.http.get('http://localhost:3000/api/');
+    return this.http.get(`${this.baseUrl}api/`);
   }
 
   // isEmailAvailable(email: string) {
@@ -54,7 +54,7 @@ export class ApiService {
   // }
 
   deleteUser(id: string) {
-    this.http.delete(`http://localhost:3000/api/${id}/`).subscribe(
+    this.http.delete(`${this.baseUrl}api/${id}/`).subscribe(
       response => {
         console.log(response);
         this.getUsers();
@@ -68,9 +68,9 @@ export class ApiService {
 
     const updatedUser = Object.assign({}, user);
 
-    updatedUser.name = 'new Name';
+    // updatedUser.name = 'new Name';
 
-    this.http.put('http://localhost:3000/api/', updatedUser).subscribe(
+    this.http.put(`${this.baseUrl}api/`, updatedUser).subscribe(
       response => {
         console.log(response);
         this.getUsers();

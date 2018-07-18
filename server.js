@@ -31,7 +31,7 @@ app.set('views', 'dist');
 const apiRouter = require('./router/userRouter').apiRouter;
 const chatRouter = require('./router/chatRoutes').chatRouter;
 app.use('/api', apiRouter);
-app.use('/chat', chatRouter);
+app.use('/socket/chat', chatRouter);
 
 require('./sockets/chat.socket');
 

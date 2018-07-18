@@ -41,7 +41,7 @@
                 </div>
               </section>
             </div>
-            <div class="panel-body">
+            <div class="panel-body with-emo">
               <form class="row form-inline" [formGroup]="sendForm" autocomplete="off"
                     (submit)="onSubmit()">
                 <div class="form-group col-md-12">
@@ -58,6 +58,12 @@
                                 formControlName="message"></textarea>
                         <span class="clear-message" *ngIf="messageTextField.length > 0"
                               (click)="clearField()"><i class="fas fa-times"></i></span>
+                        <div class="emoji-toggler emo xsm benamix-xsm-happy-7"></div>
+                      <div class="emoji-wrapper">
+                        <span *ngFor="let emo of emojiSet">
+                            <i [class]="'emo xsm benamix-xsm-' + emo" (click)="insertEmoToTextArea(emo)"></i>
+                        </span>
+                      </div>
                         <div class="instruction">
                             <button type="submit" class="btn btn-default btn-raised"
                                     [disabled]="!sendForm.valid">

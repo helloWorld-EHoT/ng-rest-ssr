@@ -228,12 +228,60 @@ code {
   }
 }
 
-
-
 .cd-timeline-content {
   &:hover > .quote-message,
   &:hover > .remove-message {
     opacity: 1;
     visibility: visible;
+  }
+}
+
+.panel.with-scroll .panel-body.with-emo {
+  overflow: visible;
+}
+
+.emoji-toggler {
+  position: absolute;
+  right: 200px;
+  bottom: calc(100% - 30px);
+  cursor: pointer;
+  &:hover ~ .emoji-wrapper {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.emoji-wrapper {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 666;
+  padding: 10px 10px 0 0;
+  max-width: 650px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-out;
+  &:hover {
+    opacity: 1;
+    visibility: visible;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    display: block;
+    height: 30px;
+    max-width: 650px;
+    width: calc(100% - 150px);
+  }
+  span {
+    cursor: pointer;
+    i {
+
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
   }
 }

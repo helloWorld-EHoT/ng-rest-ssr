@@ -13,15 +13,16 @@ export class ChatService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              @Inject(PLATFORM_ID) private platformId
+              @Inject(PLATFORM_ID) private platformId,
+              @Inject('BASE_URL') private baseUrl: string
   ) {}
 
   getAll() {
-    return this.http.get('http://localhost:3000/chat/');
+    return this.http.get(`${this.baseUrl}socket/chat/`);
   }
 
   removeMessages(id: string) {
-    return this.http.delete(`http://localhost:3000/chat/${id}/`);
+    return this.http.delete(`${this.baseUrl}socket/chat/${id}/`);
   }
 
 }

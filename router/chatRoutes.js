@@ -133,22 +133,6 @@ chatRouter.get('/:id', (req, res) => {
 
 });
 
-// chatRouter.post('/', (req, res) => {
-//
-//     let requestMessage = {
-//         sender: req.body.sender,
-//         content: req.body.content,
-//         date: req.body.date,
-//         read: req.body.read,
-//         chat_id: req.body.chat_id
-//     };
-//
-//     let messageTextField = new MessageListDB(requestMessage);
-//
-//     ChatService.saveMessage(req, res, messageTextField);
-//
-// });
-
 chatRouter.put('/', (req, res) => {
 
   ChatService.updateUser(req, res);

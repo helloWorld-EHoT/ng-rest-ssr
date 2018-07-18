@@ -32,6 +32,10 @@ const UserSchema = new Schema({
     online: {
         type: Boolean,
         required: false
+    },
+    avatar: {
+        type: String,
+        required: false
     }
 
 });

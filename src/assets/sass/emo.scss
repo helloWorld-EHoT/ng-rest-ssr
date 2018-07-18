@@ -50,7 +50,13 @@
 .benamix-wink-1:not(.sm) { background-position: -640px -768px; width: 128px; height: 128px; }
 .benamix-wink:not(.sm) { background-position: -768px -768px; width: 128px; height: 128px; }
 
-.emo.sm{ display: inline-block; background: url('./assets/img/sm.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+.emo.sm{
+  display: inline-block;
+  background: url('./assets/img/sm.png') no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+  text-align: left;
+}
 
 .sm.benamix-sm-angel { background-position: -0px -0px; width: 64px; height: 64px; }
 .sm.benamix-sm-angry-1 { background-position: -64px -0px; width: 64px; height: 64px; }
@@ -103,7 +109,13 @@
 .sm.benamix-sm-wink-1 { background-position: -384px -384px; width: 64px; height: 64px; }
 .sm.benamix-sm-wink { background-position: -0px -448px; width: 64px; height: 64px; }
 
-.emo.xsm{ display: inline-block; background: url('./assets/img/xsm.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+.emo.xsm{
+  display: inline-block;
+  background: url('./assets/img/xsm.png') no-repeat;
+  overflow: hidden; text-indent: -9999px;
+  text-align: left;
+  margin-bottom: -6px;
+}
 
 .xsm.benamix-xsm-angel { background-position: -0px -0px; width: 24px; height: 24px; }
 .xsm.benamix-xsm-angry-1 { background-position: -24px -0px; width: 24px; height: 24px; }

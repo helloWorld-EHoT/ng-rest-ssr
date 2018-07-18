@@ -31,6 +31,58 @@ export class PrivateComponent implements OnInit, OnDestroy {
         strike: '--S--'
     };
 
+    emojiSet: string[] = [
+        'angel',
+        'angry-1',
+        'angry',
+        'arrogant',
+        'bored',
+        'confused',
+        'cool-1',
+        'cool',
+        'crying-1',
+        'crying-2',
+        'crying',
+        'cute',
+        'embarrassed',
+        'greed',
+        'happy-1',
+        'happy-2',
+        'happy-3',
+        'happy-4',
+        'happy-5',
+        'happy-6',
+        'happy-7',
+        'happy',
+        'in-love',
+        'kiss-1',
+        'kiss',
+        'laughing-1',
+        'laughing-2',
+        'laughing',
+        'muted',
+        'nerd',
+        'sad-1',
+        'sad-2',
+        'sad',
+        'scare',
+        'serious',
+        'shocked',
+        'sick',
+        'sleepy',
+        'smart',
+        'surprised-1',
+        'surprised-2',
+        'surprised-3',
+        'surprised-4',
+        'surprised',
+        'suspicious',
+        'tongue',
+        'vain',
+        'wink-1',
+        'wink'
+    ];
+
     placement: { start: number, end: number, selection: string } = {
         start: null,
         end: null,
@@ -161,13 +213,16 @@ export class PrivateComponent implements OnInit, OnDestroy {
         if (event.target.selectionStart >= 0 && event.target.selectionEnd) {
             const selection = event.target.value.substr(event.target.selectionStart, event.target.selectionEnd - event.target.selectionStart);
 
-            console.log(selection);
+            console.log('event.target.selectionStart: ', event.target.selectionStart);
+            console.log('event.target.selectionEnd: ', event.target.selectionEnd);
+            console.log('event.target.value: ', event.target.value);
             this.placement = {
                 start: event.target.selectionStart,
                 end: event.target.selectionEnd,
                 selection: selection
             };
         } else {
+            console.log(event.target);
             this.placement = {
                 start: null,
                 end: null,
@@ -188,7 +243,6 @@ export class PrivateComponent implements OnInit, OnDestroy {
     }
 
     quoteMessage(message: IMessage) {
-        console.log(message);
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         const fD = new Date(parseInt(message.date, 10));
         const date = `${fD.getDate()} ${months[fD.getMonth()]} ${fD.getFullYear()} ${fD.getHours()}:${fD.getMinutes()}:${fD.getSeconds()}`;
@@ -204,6 +258,21 @@ export class PrivateComponent implements OnInit, OnDestroy {
 
     clearField() {
         this.messageTextField = '';
+    }
+
+    insertEmoToTextArea(emo: string) {
+        if (!this.messageTextField.length) {
+            this.messageTextField = `::${emo}::`;
+
+        }else if (!this.placement.start && !this.placement.end) {
+            this.messageTextField += ` ::${emo}:: `;
+        } else if (this.placement.start === this.placement.end) {
+            this.messageTextField = this.insetInside(emo);
+        }
+    }
+
+    insetInside(emo) {
+        return [this.messageTextField.slice(0, this.placement.start), ` ::${emo}:: `, this.messageTextField.slice(this.placement.end)].join('');
     }
 
 }

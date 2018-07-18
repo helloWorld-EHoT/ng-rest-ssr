@@ -1,5 +1,5 @@
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_ID, Inject, NgModule, PLATFORM_ID} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -19,7 +19,15 @@ import {LoggedGuard} from './shared/guards/logged.guard';
 import {SocketService} from './shared/services/socket.service';
 import {ChatService} from './shared/services/chat.service';
 import {UserModule} from './user/user.module';
+import {APP_BASE_HREF, isPlatformBrowser} from '@angular/common';
 
+export function GetBaseUrl() {
+        if (isPlatformBrowser(PLATFORM_ID)) {
+            return document.getElementsByTagName('base')[0].href;
+        } else {
+            return 'http://localhost:3000/';
+        }
+}
 
 @NgModule({
   declarations: [
@@ -47,7 +55,9 @@ import {UserModule} from './user/user.module';
     // Guards
     AuthGuard,
     LoggedGuard,
-    RoleGuard
+    RoleGuard,
+      { provide: 'BASE_URL', useFactory: GetBaseUrl },
+      {provide: APP_BASE_HREF, useValue : '/' }
   ],
   bootstrap: [AppComponent]
 })
