@@ -10,14 +10,13 @@
           <div class="panel panel-blur with-scroll animated zoomIn" *ngIf="serverMessages">
             <div class="panel-body panel-body-messages">
               <section class="cd-container">
-
-                <div class="cd-timeline-block" *ngFor="let message of serverMessages"
+                <div class="cd-timeline-block" *ngFor="let message of serverMessages | chatMessage: roomId"
                      [class.server]="message.sender_id === '666'">
                   <div class="cd-timeline-img" *ngIf="message.sender !== 'server'">
-                    <img *ngIf="message.sender !== currentUser.name" src="../../assets/img/face.svg"
+                    <img *ngIf="message.sender !== currentUser.name" [src]="'https://api.adorable.io/avatars/60/' + message.sender_id + 'png'"
                          alt="">
                     <img *ngIf="message.sender === currentUser.name"
-                         src="../../assets/img/app/profile/81.jpg" alt="">
+                         [src]="'https://api.adorable.io/avatars/60/' + currentUser._id + 'png'" alt="">
                   </div>
                   <div class="cd-timeline-img" *ngIf="message.sender === 'server'">
                     <i class="fas fa-server"></i>
@@ -25,11 +24,12 @@
                   <div class="cd-timeline-content  warning">
                     <h5 class="user-name"
                         benamixOnline
-                        [class.online]="currentUser.online && message.sender_id === currentUser._id"
                         [class.current]="message.sender_id === currentUser._id">
                       {{ message.sender }}
                     </h5>
-                    <div class="user-message" [innerHtml]="message.content | prettyPrint" (select)="onMessageSelect($event, message)">
+                    <div class="user-message"
+                         [innerHtml]="message.content | prettyPrint"
+                         (select)="onMessageSelect($event, message)">
 
                     </div>
                     <span class="cd-date">{{ message.date | date:'medium' }}</span>
@@ -60,8 +60,13 @@
                               (click)="clearField()"><i class="fas fa-times"></i></span>
                         <div class="emoji-toggler emo xsm benamix-xsm-happy-7"></div>
                       <div class="emoji-wrapper">
+                        <div class="emoji-preview">
+                          <i [class]="'emo benamix-' + selectedEmo"></i>
+                        </div>
                         <span *ngFor="let emo of emojiSet">
-                            <i [class]="'emo xsm benamix-xsm-' + emo" (click)="insertEmoToTextArea(emo)"></i>
+                            <i [class]="'emo xsm benamix-xsm-' + emo"
+                               (click)="insertEmoToTextArea(emo)"
+                               (mouseenter)="selectEmo(emo)"></i>
                         </span>
                       </div>
                         <div class="instruction">

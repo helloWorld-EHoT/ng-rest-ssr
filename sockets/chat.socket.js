@@ -17,7 +17,7 @@ wsServer.on('connection', (ws) => {
   wsServer.clients.forEach(client => {
     UserService.getAllOnlineUsers()
       .then(users => {
-        if (client != ws) {
+        // if (client != ws) {
           client.send(JSON.stringify({
             sender: 'server',
             sender_id: '666',
@@ -27,13 +27,11 @@ wsServer.on('connection', (ws) => {
             read: true,
             online: true
           }));
-        }
+        // }
       })
       .catch(err => {
         console.log(err);
       });
-
-
   });
 
   ws.on('message', (message) => {

@@ -10,11 +10,9 @@
 
 <aside class="al-sidebar">
   <ul class="al-sidebar-list">
-    <li class="al-sidebar-list-item selected">
-      <a class="al-sidebar-list-link">
+    <li class="al-sidebar-list-item" routerLinkActive="selected">
+      <a [routerLink]="['/chat']" [queryParams]="{room:'main'}" class="al-sidebar-list-link">
         <span>Main Chat</span>
-        <!--<span class="new-messageTextField public">5</span>-->
-        <!--<figure class="notification-ring"></figure>-->
       </a>
     </li>
     <li class="al-sidebar-list-item">
@@ -22,13 +20,19 @@
         <span>Disabled chat-room</span>
       </a>
     </li>
-    <!--<li class="al-sidebar-list-item" *ngFor="let user of room.onlineUsers">-->
-      <!--<a class="al-sidebar-list-link" [class.disabled]="!user.online">-->
-        <!--<span>{{user.name}}</span>-->
-      <!--</a>-->
-    <!--</li>-->
+    <li class="al-sidebar-list-item" *ngFor="let user of onlineUsers" routerLinkActive="selected">
+      <a  [routerLink]="['/chat']" [queryParams]="{room: user._id}"
+          class="al-sidebar-list-link"
+          [class.disabled]="!user.online">
+        <span>{{user.name}}</span>
+      </a>
+    </li>
   </ul>
 </aside>
 
 
-<benamix-private></benamix-private>
+<benamix-private
+  [currentUser]="currentUser"
+  [roomId]="roomId"
+  [serverMessages]="serverMessages"
+  (messageSubmit)="sendMessage($event)"></benamix-private>

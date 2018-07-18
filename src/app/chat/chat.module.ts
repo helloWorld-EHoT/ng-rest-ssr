@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrettyPrintPipe } from '../shared/pipes/pretty-print.pipe';
 import { OnlineDirective } from '../shared/directives/online.directive';
+import { ChatMessagePipe } from '../shared/pipes/chat-message.pipe';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { OnlineDirective } from '../shared/directives/online.directive';
     UserComponent,
     // PIPES
     PrettyPrintPipe,
+    ChatMessagePipe,
     // DIRECTIVES
     OnlineDirective
   ]

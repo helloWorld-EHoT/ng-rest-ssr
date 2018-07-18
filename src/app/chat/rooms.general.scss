@@ -70,16 +70,12 @@
     align-items: baseline;
     user-select: none;
     .instruction-item {
-      //display: flex;
       background-color: transparent;
       border: none;
       color: rgba(236, 236, 236, 0.25);
       height: 20px;
       padding: 0;
       cursor: default;
-      //&:hover {
-      //  color: rgba(236, 236, 236, 0.25);
-      //}
       h3 {
         margin-bottom: 0;
       }
@@ -111,7 +107,6 @@
 }
 
 textarea.form-control, input.form-control {
-  //resize: none;
   width: calc(100% - 150px) !important;
   resize: both;
   min-height: 67px;
@@ -257,7 +252,7 @@ code {
   right: 12px;
   background: rgba(0, 0, 0, 0.4);
   z-index: 666;
-  padding: 10px 10px 0 0;
+  padding: 10px 10px 0 148px;
   max-width: 650px;
   opacity: 0;
   visibility: hidden;
@@ -283,5 +278,10 @@ code {
       margin-left: 10px;
       margin-bottom: 10px;
     }
+  }
+  .emoji-preview {
+    display: block;
+    position: absolute;
+    left: 15px;
   }
 }

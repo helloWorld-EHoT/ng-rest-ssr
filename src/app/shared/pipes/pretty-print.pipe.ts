@@ -23,8 +23,8 @@ export class PrettyPrintPipe implements PipeTransform {
         if (typeof input === 'undefined' || typeof input === null) {
             return '';
         } else {
-            const lineFeed: string = input.split('\n').join('<br />');
-            // return this.checkContainsElementsInside(lineFeed);
+            const lineFeed: string = input.toString().split('\n').join('<br />');
+
             const safeHTML = this.checkContainsElementsInside(lineFeed);
             return this._sanitizer.bypassSecurityTrustHtml(safeHTML);
         }
@@ -34,6 +34,7 @@ export class PrettyPrintPipe implements PipeTransform {
 
     transformString(input: string, separator: string, tag: string) {
         const inputArray: string[] = input.split(separator);
+
         if (separator === 'quote-start') {
 
             return input.replace(this.regexpStart, tag);
@@ -80,8 +81,8 @@ export class PrettyPrintPipe implements PipeTransform {
         outputString = this.transformString(outputString, '``', 'sup');
         // if stroked '--' contains
         outputString = this.transformString(outputString, '--', 'strike');
-      // if stroked '::' contains
-      outputString = this.transformString(outputString, '::', 'emo');
+        // if stroked '::' contains
+        outputString = this.transformString(outputString, '::', 'emo');
 
         if (this.regexpStart.test(outputString) && this.regexpEnd.test(outputString)) {
             // if stroked '&laquo;' contains
