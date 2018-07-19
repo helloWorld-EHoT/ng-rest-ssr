@@ -20,13 +20,16 @@
         <span>Disabled chat-room</span>
       </a>
     </li>
-    <li class="al-sidebar-list-item" *ngFor="let user of onlineUsers" routerLinkActive="selected">
-      <a  [routerLink]="['/chat']" [queryParams]="{room: user._id}"
-          class="al-sidebar-list-link"
-          [class.disabled]="currentUser._id === user._id">
-        <span>{{currentUser._id !== user._id ? user.name : 'Saved Messages'}}</span>
-      </a>
-    </li>
+    <div *ngIf="onlineUsers && currentUser">
+      <li class="al-sidebar-list-item" *ngFor="let user of onlineUsers" routerLinkActive="selected">
+        <a  [routerLink]="['/chat']" [queryParams]="{room: user._id}"
+            class="al-sidebar-list-link"
+            [class.disabled]="currentUser._id === user._id">
+          <span>{{currentUser._id !== user._id ? user.name : 'Saved Messages'}}</span>
+        </a>
+      </li>
+    </div>
+
   </ul>
 </aside>
 

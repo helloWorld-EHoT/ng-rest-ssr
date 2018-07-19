@@ -42,19 +42,21 @@ wsServer.on('connection', (ws) => {
         const temp = [];
         wsServer.clients.forEach(client => {
             if (ChatService.wsClients) {
-                if (ChatService.wsClients.indexOf(client) > -1) {
-                    client.send(JSON.stringify({
-                        sender: 'server',
-                        sender_id: '666',
-                        content: `${status.sender} disconnected`,
-                        date: Date.now().toString(),
-                        chat_id: 'our',
-                        read: true,
-                        online: true
-                    }));
-                } else {
-                    temp.push(client);
-                }
+                ChatService.wsClients.forEach((wsClient) => {
+                    if (wsClient.indexOf(client) > -1) {
+                        client.send(JSON.stringify({
+                            sender: 'server',
+                            sender_id: '666',
+                            content: `${status.sender} disconnected`,
+                            date: Date.now().toString(),
+                            chat_id: 'our',
+                            read: true,
+                            online: true
+                        }));
+                    } else {
+                        temp.push(client);
+                    }
+                });
             }
         });
         if (temp.length) {

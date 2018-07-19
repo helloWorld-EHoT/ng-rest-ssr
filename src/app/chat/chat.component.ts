@@ -67,6 +67,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 
                     this.currentUser = this.auth.getUser();
 
+                    const status = {
+                        content: 'USER_CONNECTED',
+                        sender_id: this.currentUser._id,
+                        sender: this.currentUser.name,
+                        date: Date.now().toString(),
+                        chat_id: this.roomId,
+                        read: false
+                    };
+                    this.socket$.next(JSON.stringify(status));
 
                     this.chat.getAll().subscribe((chatMessages: IMessage[]) => {
                         this.serverMessages = chatMessages;
@@ -75,15 +84,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                     });
                 }
             );
-        const status = {
-            content: 'USER_CONNECTED',
-            sender_id: this.currentUser._id,
-            sender: this.currentUser.name,
-            date: Date.now().toString(),
-            chat_id: this.roomId,
-            read: false
-        };
-        this.socket$.next(JSON.stringify(status));
+
     }
 
     ngOnDestroy() {

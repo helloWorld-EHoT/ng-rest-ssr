@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
       this.auth.setLoggedState(true);
       console.log(response);
       // Navigate
-      this.router.navigate(['/chat']);
+      this.router.navigate(['/chat'], { queryParams: { room: 'main' }});
       console.log(response);
     }, error => {
       // this.auth.setLoggedState(false);

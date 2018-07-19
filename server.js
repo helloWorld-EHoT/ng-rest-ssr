@@ -7,9 +7,13 @@ const ngUniversal = require('@nguniversal/express-engine');
 const bootstrap = require('./dist-server/main.bundle');
 const cors = require('cors');
 
+// const enableProdMode = require('@angular/core').enableProdMode;
+// enableProdMode();
+
 const app = express();
 
 const bodyParser = require('body-parser');
+
 require('./db/dbConnection');
 
 app.use(bodyParser.json());
@@ -26,7 +30,11 @@ app.engine('html', ngUniversal.ngExpressEngine({
 }));
 app.set('view engine', 'html');
 app.set('views', 'dist');
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.BASE_URL || 'localhost';
+const baseUrl = `http://${HOST}:${PORT}`;
 
+app.set('port', PORT);
 
 const apiRouter = require('./router/userRouter').apiRouter;
 const chatRouter = require('./router/chatRoutes').chatRouter;
@@ -37,4 +45,5 @@ require('./sockets/chat.socket');
 
 app.get('*', (req, res) => res.render('index', {req, res}));
 
-app.listen(3000, () => console.log(`Listening on http://localhost:3000`));
+// app.listen(server.address().port, () => console.log(`Listening on http://localhost:3000`));
+app.listen(app.get('port'), () => console.log(`Listening on ${baseUrl}`));
