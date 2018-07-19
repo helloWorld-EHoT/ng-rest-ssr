@@ -10,33 +10,35 @@
           <div class="panel panel-blur with-scroll animated zoomIn" *ngIf="serverMessages">
             <div class="panel-body panel-body-messages">
               <section class="cd-container">
-                <div class="cd-timeline-block" *ngFor="let message of serverMessages | chatMessage: roomId"
+                <div class="cd-timeline-block" [class.private-if]="!(roomId === message.chat_id)" *ngFor="let message of serverMessages"
                      [class.server]="message.sender_id === '666'">
-                  <div class="cd-timeline-img" *ngIf="message.sender !== 'server'">
-                    <img *ngIf="message.sender !== currentUser.name" [src]="'https://api.adorable.io/avatars/60/' + message.sender_id + 'png'"
-                         alt="">
-                    <img *ngIf="message.sender === currentUser.name"
-                         [src]="'https://api.adorable.io/avatars/60/' + currentUser._id + 'png'" alt="">
-                  </div>
-                  <div class="cd-timeline-img" *ngIf="message.sender === 'server'">
-                    <i class="fas fa-server"></i>
-                  </div>
-                  <div class="cd-timeline-content  warning">
-                    <h5 class="user-name"
-                        benamixOnline
-                        [class.current]="message.sender_id === currentUser._id">
-                      {{ message.sender }}
-                    </h5>
-                    <div class="user-message"
-                         [innerHtml]="message.content | prettyPrint"
-                         (select)="onMessageSelect($event, message)">
-
+                  <div *ngIf="!(roomId !== message.chat_id)">
+                    <div class="cd-timeline-img" *ngIf="message.sender !== 'server'">
+                      <img *ngIf="message.sender !== currentUser.name" [src]="'https://api.adorable.io/avatars/60/' + message.sender_id + 'png'"
+                           alt="">
+                      <img *ngIf="message.sender === currentUser.name"
+                           [src]="'https://api.adorable.io/avatars/60/' + currentUser._id + 'png'" alt="">
                     </div>
-                    <span class="cd-date">{{ message.date | date:'medium' }}</span>
-                    <span class="remove-message" *ngIf="message.sender === currentUser.name"
-                          (click)="removeMessage(message._id)"><i class="fas fa-times"></i></span>
+                    <div class="cd-timeline-img" *ngIf="message.sender === 'server'">
+                      <i class="fas fa-server"></i>
+                    </div>
+                    <div class="cd-timeline-content  warning">
+                      <h5 class="user-name"
+                          benamixOnline
+                          [class.current]="message.sender_id === currentUser._id">
+                        {{ message.sender }}
+                      </h5>
+                      <div class="user-message"
+                           [innerHtml]="message.content | prettyPrint"
+                           (select)="onMessageSelect($event, message)">
+
+                      </div>
+                      <span class="cd-date">{{ message.date | date:'medium' }}</span>
+                      <span class="remove-message" *ngIf="message.sender === currentUser.name"
+                            (click)="removeMessage(message._id)"><i class="fas fa-times"></i></span>
                       <span class="quote-message"
                             (click)="quoteMessage(message)"><i class="fas fa-quote-right"></i></span>
+                    </div>
                   </div>
                 </div>
               </section>

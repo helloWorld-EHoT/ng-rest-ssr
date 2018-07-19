@@ -10,94 +10,103 @@ const UserService = require('../router/userRouter').UsersService;
 
 wsServer.on('connection', (ws) => {
 
-  console.log('connection detected');
-  ChatService.setWsConnection(ws);
-  ChatService.wsClients = wsServer.clients;
+    console.log('connection detected');
+    ChatService.setWsConnection(ws);
+    ChatService.wsClients = wsServer.clients;
 
-  wsServer.clients.forEach(client => {
-    UserService.getAllOnlineUsers()
-      .then(users => {
-        // if (client != ws) {
-          client.send(JSON.stringify({
-            sender: 'server',
-            sender_id: '666',
-            content: `ONLINE_USERS`,
-            date: Date.now().toString(),
-            chat_id: users,
-            read: true,
-            online: true
-          }));
-        // }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  });
-
-  ws.on('message', (message) => {
-
-    console.log('received: %s', message);
-
-    const status = JSON.parse(message);
-
-    if (typeof status.content !== "undefined") {
-      if (status.content === 'USER_DISCONNECTED') {
-        console.log(status.content);
-        UserService.setOnlineById(status.sender_id, false);
+    function sendOnlineUsers() {
         wsServer.clients.forEach(client => {
-          client.send(JSON.stringify({
-            sender: 'server',
-            sender_id: '666',
-            content: `${status.sender} disconnected`,
-            date: Date.now().toString(),
-            chat_id: 'our',
-            read: true,
-            online: true
-          }));
+            UserService.getAllOnlineUsers()
+                .then(users => {
+                    // if (client != ws) {
+                    client.send(JSON.stringify({
+                        sender: 'server',
+                        sender_id: '666',
+                        content: `ONLINE_USERS`,
+                        date: Date.now().toString(),
+                        chat_id: users,
+                        read: true,
+                        online: true
+                    }));
+                    // }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         });
-
-      } else if (status.content === 'USER_CONNECTED') {
-        UserService.setOnlineById(status.sender_id, true);
-        wsServer.clients.forEach(client => {
-          if (client != ws) {
-            client.send(JSON.stringify({
-              sender: 'server',
-              sender_id: '666',
-              content: `*${status.sender}* ~connected~`,
-              date: Date.now().toString(),
-              chat_id: `${status.sender_id}`,
-              read: true,
-              online: true
-            }));
-          }
-        });
-      } else {
-        ChatService.saveMessage(message, wsServer.clients);
-      }
     }
 
-  });
+    sendOnlineUsers();
 
-  ws.on('close', function (status) {
-    console.log('connection closed', status);
-    // wsServer.clients
-    //     .forEach(client => {
-    //         client.send(JSON.stringify({
-    //             sender: 'server',
-    //             sender_id: '666',
-    //             content: `Client disconnected`,
-    //             date: Date.now().toString(),
-    //             chat_id: 'our',
-    //             read: true,
-    //             online: true
-    //         }));
-    //     });
+    function checkConnections() {
+        const temp = [];
+        wsServer.clients.forEach(client => {
+            if (ChatService.wsClients) {
+                if (ChatService.wsClients.indexOf(client) > -1) {
+                    client.send(JSON.stringify({
+                        sender: 'server',
+                        sender_id: '666',
+                        content: `${status.sender} disconnected`,
+                        date: Date.now().toString(),
+                        chat_id: 'our',
+                        read: true,
+                        online: true
+                    }));
+                } else {
+                    temp.push(client);
+                }
+            }
+        });
+        if (temp.length) {
+            temp.forEach((disconnected) => {
+                UserService.setOnlineById(disconnected._id, false);
+            });
+        }
+        sendOnlineUsers();
+    }
 
-  });
+    ws.on('message', (message) => {
+
+        console.log('received: %s', message);
+
+        const status = JSON.parse(message);
+
+        if (typeof status.content !== "undefined") {
+            if (status.content === 'USER_DISCONNECTED') {
+                console.log(status.content);
+                UserService.setOnlineById(status.sender_id, false);
+                checkConnections();
+
+            } else if (status.content === 'USER_CONNECTED') {
+                UserService.setOnlineById(status.sender_id, true);
+                wsServer.clients.forEach(client => {
+                    if (client != ws) {
+                        client.send(JSON.stringify({
+                            sender: 'server',
+                            sender_id: '666',
+                            content: `*${status.sender}* ~connected~`,
+                            date: Date.now().toString(),
+                            chat_id: `${status.sender_id}`,
+                            read: true,
+                            online: true
+                        }));
+                    }
+                });
+            } else {
+                ChatService.saveMessage(message, wsServer.clients);
+            }
+        }
+
+    });
+
+    ws.on('close', function (status) {
+        console.log('connection closed', status);
+        checkConnections();
+    });
 });
 
 server.listen(process.env.PORT || 8999, () => {
-  console.log(`Server started on port ${server.address().port} :)`);
+    console.log(`Server started on port ${server.address().port} :)`);
 });
 
 module.exports = wsServer;

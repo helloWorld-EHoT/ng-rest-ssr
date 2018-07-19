@@ -23,16 +23,27 @@
     <li class="al-sidebar-list-item" *ngFor="let user of onlineUsers" routerLinkActive="selected">
       <a  [routerLink]="['/chat']" [queryParams]="{room: user._id}"
           class="al-sidebar-list-link"
-          [class.disabled]="!user.online">
-        <span>{{user.name}}</span>
+          [class.disabled]="currentUser._id === user._id">
+        <span>{{currentUser._id !== user._id ? user.name : 'Saved Messages'}}</span>
       </a>
     </li>
   </ul>
 </aside>
 
+<div *ngIf="serverMessages; else loading">
+  <benamix-private
+          [currentUser]="currentUser"
+          [roomId]="roomId"
+          [serverMessages]="serverMessages"
+          (messageSubmit)="sendMessage($event)"></benamix-private>
+</div>
 
-<benamix-private
-  [currentUser]="currentUser"
-  [roomId]="roomId"
-  [serverMessages]="serverMessages"
-  (messageSubmit)="sendMessage($event)"></benamix-private>
+<ng-template #loading>
+  <main class="auth-main">
+    <div class="auth-block">
+      <h1>Chat</h1>
+      <h3>Loading...</h3>
+    </div>
+  </main>
+</ng-template>
+
