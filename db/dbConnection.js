@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const dbName = 'rest';
-mongoose.connect(`mongodb://195.110.58.76:27017/${dbName}`, { useNewUrlParser: true });
+mongoose.connect(`mongodb://localhost:27017/${dbName}`, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error', (err) => {
