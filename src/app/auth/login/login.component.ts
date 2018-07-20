@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  rememberMe = false;
+  rememberMe = true;
 
   onLoginError: { state: boolean, type: string } = {
     state: false,
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.getAll();
     if (this.route.snapshot.queryParams.mail) {
       this.visitor.email = this.route.snapshot.queryParams.mail;
     }
@@ -55,25 +54,23 @@ export class LoginComponent implements OnInit {
   }
 
   // TODO: DEBUG MODE - Удалить перед билдом.
-  getAll() {
-    this.auth.getAll().subscribe(
-      response => {
-        console.log(response);
-      }, error => {
-        console.log(error);
-      }
-    );
-  }
+  // getAll() {
+  //   this.auth.getAll().subscribe(
+  //     response => {
+  //       console.log(response);
+  //     }, error => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
   onSubmit(event) {
     event.preventDefault();
     this.auth.login(this.loginForm.value).subscribe((response: IUser) => {
       this.auth.setUser(response, this.rememberMe);
       this.auth.setLoggedState(true);
-      console.log(response);
       // Navigate
       this.router.navigate(['/chat'], { queryParams: { room: 'main' }});
-      console.log(response);
     }, error => {
       // this.auth.setLoggedState(false);
       this.onLoginError = {

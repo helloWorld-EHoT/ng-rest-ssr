@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewChildren} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IUser} from '../shared/models/user.model';
 import {WebSocketSubject} from 'rxjs/observable/dom/WebSocketSubject';
@@ -25,11 +25,11 @@ export class ChatComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) {
         this.serverMessages = [];
 
-        this.socket$ = WebSocketSubject.create('ws://195.110.58.76:8999');
+        // this.socket$ = WebSocketSubject.create('ws://195.110.58.76:8999');
+        this.socket$ = WebSocketSubject.create('ws://localhost:8999');
         this.socket$.subscribe(
             (message) => {
                 const msg: IMessage = typeof message === 'string' ? JSON.parse(message) : message;
-                console.log(msg);
                 if (msg.type && msg.type === 'MESSAGE_ID_TO_DELETE') {
                     this.serverMessages.forEach((messTD, index, array) => {
                         if (messTD._id === msg.id) {
@@ -42,7 +42,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
                             this.onlineUsers = msg.chat_id;
 
-                            console.log('this.onlineUsers: ', this.onlineUsers);
                         }
                     } else {
                         this.serverMessages.push(msg);
@@ -59,32 +58,35 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.currentUser = this.auth.getUser();
+
         this.route.queryParams
             .filter(params => params.room)
             .subscribe(
                 param => {
                     this.roomId = param.room;
 
-                    this.currentUser = this.auth.getUser();
 
-                    const status = {
-                        content: 'USER_CONNECTED',
-                        sender_id: this.currentUser._id,
-                        sender: this.currentUser.name,
-                        date: Date.now().toString(),
-                        chat_id: this.roomId,
-                        read: false
-                    };
-                    this.socket$.next(JSON.stringify(status));
 
                     this.chat.getAll().subscribe((chatMessages: IMessage[]) => {
                         this.serverMessages = chatMessages;
+                        // this.scrollToBottom();
                     }, error => {
                         console.log(error);
                     });
                 }
             );
-
+        if (this.currentUser._id) {
+            const status = {
+                content: 'USER_CONNECTED',
+                sender_id: this.currentUser._id,
+                sender: this.currentUser.name,
+                date: Date.now().toString(),
+                chat_id: this.roomId,
+                read: false
+            };
+            this.socket$.next(JSON.stringify(status));
+        }
     }
 
     ngOnDestroy() {
@@ -103,4 +105,5 @@ export class ChatComponent implements OnInit, OnDestroy {
     sendMessage(event: string) {
         this.socket$.next(event);
     }
+
 }

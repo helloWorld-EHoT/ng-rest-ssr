@@ -41,9 +41,9 @@ wsServer.on('connection', (ws) => {
     function checkConnections() {
         const temp = [];
         wsServer.clients.forEach(client => {
-            if (ChatService.wsClients) {
+            if (ChatService.wsClients.length > 0) {
                 ChatService.wsClients.forEach((wsClient) => {
-                    if (wsClient.indexOf(client) > -1) {
+                    if (wsClient === client) {
                         client.send(JSON.stringify({
                             sender: 'server',
                             sender_id: '666',

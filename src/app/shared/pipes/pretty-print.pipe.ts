@@ -86,11 +86,8 @@ export class PrettyPrintPipe implements PipeTransform {
 
         if (this.regexpStart.test(outputString) && this.regexpEnd.test(outputString)) {
             // if stroked '&laquo;' contains
-            console.log(outputString);
             outputString = this.transformString(outputString, 'quote-start', '<div class="quote">');
-            console.log(outputString);
             outputString = this.transformString(outputString, 'quote-end', '</div>');
-            console.log(outputString);
         }
 
         // if messageTextField contains emails
@@ -104,7 +101,6 @@ export class PrettyPrintPipe implements PipeTransform {
                     array[index] = `<a href="mailto:${part}">${part}</a>`;
                 } else if (urlString.test(part)) {
                     const shortUrl = urlShortener.exec(part)[0];
-                    console.log(shortUrl);
                     array[index] = `<a href="${part}" title="${part}" target="_blank">${shortUrl}</a>`;
                 }
             });

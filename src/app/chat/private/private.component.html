@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-blur with-scroll animated zoomIn" *ngIf="serverMessages">
-            <div class="panel-body panel-body-messages">
+            <div class="panel-body panel-body-messages" #messageBody>
               <section class="cd-container">
                 <div class="cd-timeline-block" [class.private-if]="!(roomId === message.chat_id)" *ngFor="let message of serverMessages"
                      [class.server]="message.sender_id === '666'">
@@ -29,8 +29,7 @@
                         {{ message.sender }}
                       </h5>
                       <div class="user-message"
-                           [innerHtml]="message.content | prettyPrint"
-                           (select)="onMessageSelect($event, message)">
+                           [innerHtml]="message.content | prettyPrint">
 
                       </div>
                       <span class="cd-date">{{ message.date | date:'medium' }}</span>
@@ -53,7 +52,7 @@
                                 placeholder="Текст сообщения..."
                                 rows="2"
                                 [(ngModel)]="messageTextField"
-                                (mouseup)="selectionChange($event)"
+                                (select)="selectionChange($event)"
                                 required
                                 autofocus
                                 id="message-text-area"

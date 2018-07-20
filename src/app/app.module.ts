@@ -26,6 +26,7 @@ export function GetBaseUrl() {
             return document.getElementsByTagName('base')[0].href;
         } else {
             return 'http://195.110.58.76:3000/';
+            // return 'http://localhost:3000/';
         }
 }
 
