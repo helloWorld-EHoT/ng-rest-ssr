@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {makeStateKey, TransferState} from '@angular/platform-browser';
+import {TransferState} from '@angular/platform-browser';
 
 @Component({
   selector: 'benamix-root',

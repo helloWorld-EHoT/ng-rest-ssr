@@ -1,3 +1,20 @@
+.lds-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: loading 1.7s ease-out;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 66666;
+}
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -53,3 +70,20 @@
     transform: translate(19px, 0);
   }
 }
+@keyframes loading {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
