@@ -31,7 +31,7 @@ app.engine('html', ngUniversal.ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', 'dist');
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.BASE_URL || 'http://195.110.58.76';
+const HOST = process.env.BASE_URL || '195.110.58.76';
 const baseUrl = `http://${HOST}:${PORT}`;
 
 app.set('port', PORT);
