@@ -33,6 +33,8 @@ export class PrivateComponent implements OnInit, OnDestroy, AfterViewChecked {
     @Input() currentUser: IUser;
     @Input() roomId: string;
 
+    privateChat: boolean;
+
     @ViewChild('messageBody') private messageScrollContainer: ElementRef;
 
     @Output() messageSubmit: EventEmitter<any> = new EventEmitter();
@@ -137,11 +139,15 @@ export class PrivateComponent implements OnInit, OnDestroy, AfterViewChecked {
         });
 
         this.route.queryParams
-            .filter(params => params.room)
             .subscribe(
                 param => {
-                    this.roomId = param.room;
-                    console.log(param);
+                    if (param.room) {
+                        this.privateChat = false;
+                        this.roomId = param.room;
+                    } else if (param.private) {
+                        this.privateChat = true;
+                        this.roomId = param.private;
+                    }
                 }
             );
     }

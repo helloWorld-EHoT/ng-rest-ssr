@@ -13,6 +13,7 @@
                 <div class="cd-timeline-block" [class.private-if]="!(roomId === message.chat_id)" *ngFor="let message of serverMessages"
                      [class.server]="message.sender_id === '666'">
                   <div *ngIf="!(roomId !== message.chat_id)">
+                    <!--privateChat ? !(message.sender_id !== message.chat_id) :-->
                     <div class="cd-timeline-img" *ngIf="message.sender !== 'server'">
                       <img *ngIf="message.sender !== currentUser.name" [src]="'https://api.adorable.io/avatars/60/' + message.sender_id + 'png'"
                            alt="">
@@ -30,7 +31,7 @@
                       </h5>
                       <div class="user-message"
                            [innerHtml]="message.content | prettyPrint">
-
+                        Loading...
                       </div>
                       <span class="cd-date">{{ message.date | date:'medium' }}</span>
                       <span class="remove-message" *ngIf="message.sender === currentUser.name"
@@ -45,7 +46,7 @@
             <div class="panel-body with-emo">
               <form class="row form-inline" [formGroup]="sendForm" autocomplete="off"
                     (submit)="onSubmit()">
-                <div class="form-group col-md-12">
+                <div class="form-group col-sm-12">
                   <div class="row">
                     <div class="col-md-12 send-flex">
                       <textarea class="form-control"

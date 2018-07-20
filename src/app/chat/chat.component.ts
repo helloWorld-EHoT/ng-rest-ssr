@@ -25,8 +25,8 @@ export class ChatComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) {
         this.serverMessages = [];
 
-        this.socket$ = WebSocketSubject.create('ws://195.110.58.76:8999');
-        // this.socket$ = WebSocketSubject.create('ws://localhost:8999');
+        // this.socket$ = WebSocketSubject.create('ws://195.110.58.76:8999');
+        this.socket$ = WebSocketSubject.create('ws://localhost:8999');
         this.socket$.subscribe(
             (message) => {
                 const msg: IMessage = typeof message === 'string' ? JSON.parse(message) : message;
@@ -61,10 +61,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.currentUser = this.auth.getUser();
 
         this.route.queryParams
-            .filter(params => params.room)
             .subscribe(
                 param => {
-                    this.roomId = param.room;
+                    if (param.room) {
+                        this.roomId = param.room;
+                    } else if (param.private) {
+                        this.roomId = param.private;
+                    }
 
 
 
