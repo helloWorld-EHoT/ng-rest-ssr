@@ -25,8 +25,8 @@ export class ChatComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) {
         this.serverMessages = [];
 
-        // this.socket$ = WebSocketSubject.create('ws://195.110.58.76:8999');
-        this.socket$ = WebSocketSubject.create('ws://localhost:8999');
+        this.socket$ = WebSocketSubject.create('ws://195.110.58.76:8999');
+        // this.socket$ = WebSocketSubject.create('ws://localhost:8999');
         this.socket$.subscribe(
             (message) => {
                 const msg: IMessage = typeof message === 'string' ? JSON.parse(message) : message;

@@ -31,8 +31,8 @@ app.engine('html', ngUniversal.ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', 'dist');
 const PORT = process.env.PORT || 3000;
-// const HOST = process.env.BASE_URL || '195.110.58.76';
-const HOST = process.env.BASE_URL || 'localhost';
+const HOST = process.env.BASE_URL || '195.110.58.76';
+// const HOST = process.env.BASE_URL || 'localhost';
 const baseUrl = `http://${HOST}:${PORT}`;
 
 app.set('port', PORT);
@@ -46,5 +46,4 @@ require('./sockets/chat.socket');
 
 app.get('*', (req, res) => res.render('index', {req, res}));
 
-// app.listen(server.address().port, () => console.log(`Listening on http://localhost:3000`));
 app.listen(app.get('port'), () => console.log(`Listening on ${baseUrl}`));
