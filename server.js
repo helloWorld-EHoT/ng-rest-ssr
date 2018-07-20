@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cors());
 
-app.get('/', (req, res) => res.render('index', {req, res}));
+// app.get('/', (req, res) => res.render('index', {req, res}));
 
 app.use(express.static(`${__dirname}/dist`));
 
