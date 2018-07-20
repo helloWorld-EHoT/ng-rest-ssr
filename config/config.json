@@ -1,7 +1,7 @@
 {
   "port" : 3000,
   "mongoose": {
-    "uri": "mongodb://localhost:27017/",
+    "uri": "mongodb://195.110.58.76:27017/",
     "db": "rest"
   }
 }
